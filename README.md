@@ -1,0 +1,2 @@
+# salon
+ Erics thesis project
