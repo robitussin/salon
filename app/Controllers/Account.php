@@ -9,12 +9,11 @@ class Account extends Controller
 {
     public function index()
     {
-        //
+        echo view('signup/createaccount');
     }
 
     public function usersignup()
     {
-      
         $model = new AccountModel();
 
         if ($this->request->getMethod() === 'post' && $this->validate([
@@ -37,10 +36,7 @@ class Account extends Controller
         }
         else
         {
-            echo view('templates/header', ['title' => 'Sign up today!']);
             echo view('signup/createaccount');
-            echo view('templates/footer');
-            
         }
     }
 
@@ -51,20 +47,15 @@ class Account extends Controller
 
         if ($this->request->getMethod() === 'post' && $this->validate([
                 'emailaddress' => 'required',
-                'username' => 'required',
                 'password'  => 'required',
-                'contactnumber'  => 'required',
             ]))
         {
-            echo view('login/success');
+            echo view('admin/dashboard');
 
         }
         else
         {
-            echo view('templates/header', ['title' => 'Sign up today!']);
-            echo view('login/loginaccount');
-            echo view('templates/footer');
-            
+            echo view('login/loginaccount');     
         }
     }
 }

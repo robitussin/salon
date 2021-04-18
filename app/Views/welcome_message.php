@@ -68,7 +68,7 @@
         </div>
         <div class="col-lg-6 order-lg-1">
           <div class="p-5">
-            <h2 class="display-4">For those about to rock...</h2>
+            <h2 class="display-4">Refresh yourself</h2>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod aliquid, mollitia odio veniam sit iste esse assumenda amet aperiam exercitationem, ea animi blanditiis recusandae! Ratione voluptatum molestiae adipisci, beatae obcaecati.</p>
           </div>
         </div>
@@ -86,7 +86,7 @@
         </div>
         <div class="col-lg-6">
           <div class="p-5">
-            <h2 class="display-4">Relax and Enjoy</h2>
+            <h2 class="display-4">Well kept grooming tools</h2>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod aliquid, mollitia odio veniam sit iste esse assumenda amet aperiam exercitationem, ea animi blanditiis recusandae! Ratione voluptatum molestiae adipisci, beatae obcaecati.</p>
           </div>
         </div>
@@ -121,8 +121,8 @@
   </footer>
 
   <!-- Bootstrap core JavaScript -->
-  <script src="<? base_url('public/assets/vendor/jquery/jquery.min.js'); ?>"></script>
-  <script src="<? base_url('public/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
+  <script src="<? base_url('assets/vendor/jquery/jquery.min.js'); ?>"></script>
+  <script src="<? base_url('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
 
 </body>
 
