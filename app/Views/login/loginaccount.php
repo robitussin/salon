@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Login</title>
+    <title>Login</title>
 
     <!-- Custom fonts for this template-->
     <link href="<?= base_url('assets/adminassets/vendor/fontawesome-free/css/all.min.css'); ?>" rel="stylesheet" type="text/css">
@@ -41,15 +41,26 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                     </div>
-                                    <form class="user" action="/account/userlogin" method="post">
+
+                                    <div class="text-center">      
+                                        <?php if (! empty($errors)) : ?>
+                                        <div class="alert alert-danger">
+                                        <?php foreach ($errors as $field => $error) : ?>
+                                        <p><?= $error ?></p>
+                                        <?php endforeach ?>
+                                        </div>
+                                        <?php endif ?>
+                                    </div>
+
+                                    <form class="user" action="<?= base_url('account/userlogin'); ?>" method="post">
                                         <div class="form-group">
                                             <input type="email" class="form-control form-control-user"
                                                 id="exampleInputEmail" aria-describedby="emailHelp"
-                                                placeholder="Enter Email Address..." name="emailaddress">
+                                                placeholder="Enter Email Address..." name="emailaddress" required>
                                         </div>
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user"
-                                                id="exampleInputPassword" placeholder="Password" name="password">
+                                                id="exampleInputPassword" placeholder="Password" name="password" required>
                                         </div>
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
@@ -62,10 +73,10 @@
                                     </form>
                                     <hr>
                                     <div class="text-center">
-                                        <a class="small" href="forgot-password.html">Forgot Password?</a>
+                                        <a class="small" href="<?= base_url('account/resetpassword'); ?>">Forgot Password?</a>
                                     </div>
                                     <div class="text-center">
-                                        <a class="small" href="register.html">Create an Account!</a>
+                                        <a class="small" href="<?= base_url('account/usersignup'); ?>">Create an Account!</a>
                                     </div>
                                 </div>
                             </div>

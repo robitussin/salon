@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Register</title>
+    <title>Register</title>
 
     <!-- Custom fonts for this template-->
     <link href="<?= base_url('assets/adminassets/vendor/fontawesome-free/css/all.min.css'); ?>" rel="stylesheet" type="text/css">
@@ -36,7 +36,18 @@
                             <div class="text-center">
                                 <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
                             </div>
-                            <form class="user" action="/account/usersignup" method="post">
+
+                            <div class="text-center">      
+                                <?php if (! empty($errors)) : ?>
+                                <div class="alert alert-danger">
+                                <?php foreach ($errors as $field => $error) : ?>
+                                <p><?= $error ?></p>
+                                <?php endforeach ?>
+                                </div>
+                                <?php endif ?>
+                            </div>
+
+                            <form class="user" action="<?= base_url('account/usersignup'); ?>" method="post">
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <input type="text" class="form-control form-control-user" id="exampleFirstName"
@@ -58,7 +69,7 @@
                                     </div>
                                     <div class="col-sm-6">
                                         <input type="password" class="form-control form-control-user"
-                                            id="exampleRepeatPassword" placeholder="Repeat Password" name ='password' required>
+                                            id="exampleRepeatPassword" placeholder="Repeat Password" name ='passwordconfirm' required>
                                     </div>
                                 </div>
                                 <input class="btn btn-primary btn-user btn-block" type="submit" value="Submit">
@@ -66,10 +77,10 @@
                             </form>
                             <hr>
                             <div class="text-center">
-                                <a class="small" href="forgot-password.html">Forgot Password?</a>
+                            <a class="small" href="<?= base_url('account/resetpassword'); ?>">Forgot Password?</a>
                             </div>
                             <div class="text-center">
-                                <a class="small" href="login.html">Already have an account? Login!</a>
+                                <a class="small" href="<?= base_url('account/userlogin'); ?>">Already have an account? Login!</a>
                             </div>
                         </div>
                     </div>

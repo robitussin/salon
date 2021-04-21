@@ -18,7 +18,7 @@
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="<?= base_url('assets/adminassets/css/sb-admin-2.min.css'); ?>" rel="stylesheet">
+    <link href="<?= base_url('assets/adminassets/css/sb-admin-2.min.css');?>" rel="stylesheet">
 
 </head>
 
@@ -39,23 +39,29 @@
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-2">Sign up successful!</h1>
-                                        <p class="mb-4">Congratulations, you are now a member. Please login your new account!</p>
+                                        <h1 class="h4 text-gray-900 mb-2">Forgot Your Password?</h1>
+                                        <p class="mb-4">We get it, stuff happens. Just enter your email address below
+                                            and we'll send you a link to reset your password!</p>
                                     </div>
-                                    <form class="user" action="<?= base_url('account/userlogin'); ?>" method="post">
+
+                                    <div class="text-center">      
+                                        <?php if (! empty($errors)) : ?>
+                                        <div class="alert alert-danger">
+                                        <?php foreach ($errors as $field => $error) : ?>
+                                        <p><?= $error ?></p>
+                                        <?php endforeach ?>
+                                        </div>
+                                        <?php endif ?>
+                                    </div>
+
+                                    <form class="user"  action="<?= base_url('account/resetpassword'); ?>" method="post">
                                         <div class="form-group">
                                             <input type="email" class="form-control form-control-user"
                                                 id="exampleInputEmail" aria-describedby="emailHelp"
-                                                placeholder="Enter Email Address..." name=emailaddress>
+                                                placeholder="Enter Email Address..." name="emailaddress" required>
                                         </div>
-                                        <div class="form-group">
-                                                <input type="password" class="form-control form-control-user"
-                                                id="exampleInputPassword" aria-describedby="emailHelp"
-                                                placeholder="Enter Password..." name="password">
-                                        </div>
-                                        <button class="btn btn-primary btn-user btn-block">Login</button>
+                                        <button class="btn btn-primary btn-user btn-block">Reset Password</button>
                                     </form>
-                                    <hr>
                                 </div>
                             </div>
                         </div>
@@ -70,13 +76,13 @@
 
     <!-- Bootstrap core JavaScript-->
     <script src="<?= base_url('assets/adminassets/vendor/jquery/jquery.min.js'); ?>"></script>
-    <script src="<?= base_url('assets/adminassets/vendor/bootstrap/js/bootstrap.bundle.min.js'); ?>"></script>
+    <script src="<?= base_url('assets/adminassets/vendor/bootstrap/js/bootstrap.bundle.min.js');?>"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="<?= base_url('assets/adminassets/vendor/jquery-easing/jquery.easing.min.js'); ?>"></script>
+    <script src="<?= base_url('assets/adminassets/vendor/jquery-easing/jquery.easing.min.js');?>"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="<?= base_url('assets/adminassets/js/sb-admin-2.min.js'); ?>"></script>
+    <script src="<?= base_url('assets/adminassets/js/sb-admin-2.min.js');?>"></script>
 
 </body>
 
