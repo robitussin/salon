@@ -51,6 +51,7 @@ class Account extends Controller
 
     public function userlogin()
     {
+
         $model = new AccountModel();
 
         if ($this->request->getMethod() === 'post' && $this->validate([
@@ -66,6 +67,17 @@ class Account extends Controller
             $result = $model->checkAccount($emailaddress, $password);
             if(isset($result))
             {
+                $session = \Config\Services::session();
+
+                $newdata = [
+                    'accountid' => $result->id,
+                    'username'  => $result->username,
+                    'email'     => $emailaddress,
+                    'logged_in' => TRUE
+                ];
+            
+                $session->set($newdata);
+
                 echo view('templates/admin/header');
                 echo view('admin/dashboard');
                 echo view('templates/admin/footer');
@@ -82,18 +94,26 @@ class Account extends Controller
         }
     }
 
+    
+    public function userlogout()
+    {
+        $session = \Config\Services::session();
+
+        $session->destroy();
+
+        echo view('login/loginaccount');  
+    }
+
+
     public function resetpassword()
     {
-
         if ($this->request->getMethod() === 'post' && $this->validate([
             'emailaddress' => 'required',
         ]))
         {
             $model = new AccountModel();
-            echo "abc";
             $emailaddress = $this->request->getPost('emailaddress');
             $password = "";
-            $result = $model->checkAccount($emailaddress, $password);
             // Checking account if it exists.
             $result = $model->checkAccount($emailaddress, $password);
             if(isset($result))

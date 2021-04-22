@@ -4,12 +4,17 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class AccountModel extends Model
+class AppointmentModel extends Model
 {
-    protected $table = 'accounts';
+    protected $table = 'services';
 
     protected $primarykey = 'id';
 
+   // protected $db = \Config\Database::connect();
+
+    //protected $builder = $db->table('services');
+
+    /*
     protected $allowedFields = ['emailaddress', 'username', 'password', 'contactnumber'];
 
     protected $validationRules = [
@@ -28,24 +33,33 @@ class AccountModel extends Model
             'matches' => '*The repeat password does not match the password.'
         ]
     ];
+    */
 
-    public function checkAccount($emailaddress, $password)
+    public function retrieveServices()
     {
         $db = \Config\Database::connect();
-        $builder = $db->table('accounts');
-        if(strlen($password))
-        {
-            $builder->select('id, emailaddress, username, password');
-            $builder->where('emailaddress', $emailaddress);
-            $builder->where('password', $password);
-        }
-        else
-        {
-            $builder->select('emailaddress');
-            $builder->where('emailaddress', $emailaddress);
-        }
-
+        $builder = $db->table('services');
         $query = $builder->get();
-        return $query->getRow();
+        return $query->getResult();
+    }
+
+    public function insertAppointment($dateandtime, $servicename, $accountid)
+    {
+        echo $dateandtime;
+        echo "</br>";
+        echo $servicename;
+        echo "</br>";
+        echo $accountid;
+        echo "</br>";
+
+        $data = [
+            'accountid' => $accountid,
+            'servicename'  => $servicename,
+            'datetime' => $dateandtime
+        ];
+        
+        $db = \Config\Database::connect();
+        $builder = $db->table('appointment');
+        $query = $builder->insert($data);        
     }
 }

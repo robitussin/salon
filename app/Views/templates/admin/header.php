@@ -67,8 +67,8 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Options:</h6>
-                        <a class="collapse-item" href="<?= base_url('admin/viewappointment'); ?>">View</a>
-                        <a class="collapse-item" href="<?= base_url('admin/createappointment'); ?>">Create</a>
+                        <a class="collapse-item" href="<?= base_url('appointment/viewappointment'); ?>">View</a>
+                        <a class="collapse-item" href="<?= base_url('appointment/createappointment'); ?>">Create</a>
                     </div>
                 </div>
             </li>
@@ -323,9 +323,14 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+                                <?php $session = session();?>
+                                <?php if($session->has('username')):?>
+                                <?php echo $session->get('username');?>
+                                <?php endif ?>  
+                                </span>
                                 <img class="img-profile rounded-circle"
-                                    src="img/undraw_profile.svg">
+                                    src="<?= base_url('assets/adminassets/img/undraw_profile.svg'); ?>">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
