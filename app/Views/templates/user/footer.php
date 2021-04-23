@@ -58,15 +58,6 @@
     <!-- Page level custom scripts -->
     <script src="<?= base_url('assets/adminassets/js/demo/chart-area-demo.js'); ?>"></script>
     <script src="<?= base_url('assets/adminassets/js/demo/chart-pie-demo.js'); ?>"></script>
-
-    <!-- Page level plugins -->
-    <script src="<?= base_url('assets/adminassets/vendor/datatables/jquery.dataTables.min.js'); ?>"></script>
-    <script src="<?= base_url('assets/adminassets/vendor/datatables/dataTables.bootstrap4.min.js'); ?>"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="<?= base_url('assets/adminassets/js/demo/datatables-demo.js'); ?>"></script>
-
-
 </body>
 
 </html>

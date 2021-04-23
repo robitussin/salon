@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\AccountModel;
+use App\Models\AppointmentModel;
 use CodeIgniter\Test\CIDatabaseTestCase;
 use CodeIgniter\Controller;
 
@@ -51,8 +52,8 @@ class Account extends Controller
 
     public function userlogin()
     {
-
-        $model = new AccountModel();
+        $accountModel = new AccountModel();
+        $appointmentModel = new AppointmentModel();
 
         if ($this->request->getMethod() === 'post' && $this->validate([
                 'emailaddress' => 'required',
@@ -64,7 +65,7 @@ class Account extends Controller
             $password = $this->request->getPost('password');
 
             // Checking account if it exists.
-            $result = $model->checkAccount($emailaddress, $password);
+            $result = $accountModel->checkAccount($emailaddress, $password);
             if(isset($result))
             {
                 $session = \Config\Services::session();
@@ -78,9 +79,21 @@ class Account extends Controller
             
                 $session->set($newdata);
 
-                echo view('templates/admin/header');
-                echo view('admin/dashboard');
-                echo view('templates/admin/footer');
+                if(!strcmp($session->get('username'), "admin"))
+                {
+                    echo view('templates/admin/header');
+                    echo view('admin/dashboard');
+                    echo view('templates/admin/footer');
+                }
+                else
+                {
+                    $accountid = $session->get('accountid');
+
+                    $result = $appointmentModel->retrieveAppointment($accountid);
+
+                    echo view('templates/user/header');
+                    return view('user/viewappointment', ['appointmentlist' => $result]);
+                }
             }
             else
             {
@@ -140,7 +153,6 @@ class Account extends Controller
         }
         else
         {
-            echo "def";
             echo view('login/forgotpassword');     
         }
     }

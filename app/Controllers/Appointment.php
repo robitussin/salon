@@ -15,6 +15,7 @@ class Appointment extends Controller
     public function createappointment()
     {
         $model = new AppointmentModel();
+
         if ($this->request->getMethod() === 'post' && $this->validate([
             'datetime' => 'required',
         ]))
@@ -28,24 +29,29 @@ class Appointment extends Controller
                 $result = $model->insertAppointment($this->request->getPost('datetime'), $field, $accountid);
             }
             
-            
+            echo $this->viewappointment();
         }
         else
         {
-            $model = new AppointmentModel();
             // Checking account if it exists.
             $result = $model->retrieveServices();
 
-            //print_r($result);
-            echo view('templates/admin/header');
-            return view('admin/createappointment', ['servicelist' => $result]);
+            echo view('templates/user/header');
+            return view('user/createappointment', ['servicelist' => $result]);
         }
     }
 
     public function viewappointment()
     {
-        echo view('templates/admin/header');
-        echo view('admin/viewappointment');
-        echo view('templates/admin/footer');
+        $model = new AppointmentModel();
+        
+        $session = \Config\Services::session();
+
+        $accountid = $session->get('accountid');
+
+        $result = $model->retrieveAppointment($accountid);
+
+        echo view('templates/user/header');
+        return view('user/viewappointment', ['appointmentlist' => $result]);
     }
 }

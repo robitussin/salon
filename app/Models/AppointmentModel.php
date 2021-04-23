@@ -6,35 +6,6 @@ use CodeIgniter\Model;
 
 class AppointmentModel extends Model
 {
-    protected $table = 'services';
-
-    protected $primarykey = 'id';
-
-   // protected $db = \Config\Database::connect();
-
-    //protected $builder = $db->table('services');
-
-    /*
-    protected $allowedFields = ['emailaddress', 'username', 'password', 'contactnumber'];
-
-    protected $validationRules = [
-        'username'  => 'required', 
-        'emailaddress' => 'required|valid_email|is_unique[accounts.emailaddress]',
-        'password'  => 'required',
-        'contactnumber' => 'required',
-        'passwordconfirm' => 'required_with[password]|matches[password]'
-    ];
-
-    protected $validationMessages = [
-        'emailaddress'  => [
-            'is_unique' => '*Sorry. That email has already been taken. Please choose another.'
-        ],
-        'passwordconfirm'   => [
-            'matches' => '*The repeat password does not match the password.'
-        ]
-    ];
-    */
-
     public function retrieveServices()
     {
         $db = \Config\Database::connect();
@@ -45,21 +16,34 @@ class AppointmentModel extends Model
 
     public function insertAppointment($dateandtime, $servicename, $accountid)
     {
-        echo $dateandtime;
-        echo "</br>";
-        echo $servicename;
-        echo "</br>";
-        echo $accountid;
-        echo "</br>";
-
         $data = [
             'accountid' => $accountid,
             'servicename'  => $servicename,
-            'datetime' => $dateandtime
+            'datetime' => $dateandtime,
+            'status' => 'PENDING'
         ];
         
         $db = \Config\Database::connect();
         $builder = $db->table('appointment');
         $query = $builder->insert($data);        
+    }
+
+    public function retrieveAppointment($accountid)
+    {
+        $db = \Config\Database::connect();
+        $builder = $db->table('appointment');
+
+        if(!strcmp($accountid, "admin"))
+        {
+            $query = $builder->get();
+        }
+        else
+        {
+            $builder->select('servicename, datetime, status');
+            $builder->where('accountid', $accountid);
+            $query = $builder->get();
+        }
+        
+        return $query->getResult();
     }
 }

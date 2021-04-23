@@ -23,9 +23,6 @@
     <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
     <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
 
-    <!-- Custom styles for this page -->
-    <link href="<?= base_url('asset/adminassets/datatables/dataTables.bootstrap4.min.css'); ?>" rel="stylesheet">
-
 <body id="page-top">
 
     <!-- Page Wrapper -->
@@ -44,14 +41,7 @@
 
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
-
-                        <!-- Nav Item - Dashboard -->
-                        <li class="nav-item active">
-                            <a class="nav-link" href="<?= base_url('admin/dashboard'); ?>">
-                            <i class="fas fa-fw fa-tachometer-alt"></i>
-                            <span>Dashboard</span></a>
-                        </li>
-   
+  
             <!-- Divider -->
             <hr class="sidebar-divider">
 
@@ -70,7 +60,8 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Options:</h6>
-                        <a class="collapse-item" href="<?= base_url('admin/manageappointment'); ?>">Manage</a>
+                        <a class="collapse-item" href="<?= base_url('appointment/viewappointment'); ?>">View</a>
+                        <a class="collapse-item" href="<?= base_url('appointment/createappointment'); ?>">Create</a>
                     </div>
                 </div>
             </li>
@@ -86,36 +77,12 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Options:</h6>
-                        <a class="collapse-item" href="utilities-color.html">Manage</a>
+                        <a class="collapse-item" href="utilities-color.html">View</a>
+                        <a class="collapse-item" href="utilities-border.html">Update</a>
                         <a class="collapse-item" href="utilities-animation.html">Change Password</a>
                     </div>
                 </div>
             </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Addons
-            </div>
-            
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="charts.html">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Charts</span></a>
-            </li>
-
-            <!-- Nav Item - Tables -->
-            <li class="nav-item">
-                <a class="nav-link" href="tables.html">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span></a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
 
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
