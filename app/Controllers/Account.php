@@ -2,11 +2,12 @@
 
 namespace App\Controllers;
 
+use App\Models\StatisticsModel;
 use App\Models\AccountModel;
 use App\Models\AppointmentModel;
 use CodeIgniter\Test\CIDatabaseTestCase;
 use CodeIgniter\Controller;
-
+use CodeIgniter\I18n\Time;
 class Account extends Controller
 {
     public function index()
@@ -31,7 +32,8 @@ class Account extends Controller
                 'username'  => $this->request->getPost('username'), 
                 'password'  => $this->request->getPost('password'),
                 'contactnumber'  => $this->request->getPost('contactnumber'),
-                'passwordconfirm'  => $this->request->getPost('passwordconfirm')
+                'passwordconfirm'  => $this->request->getPost('passwordconfirm'),
+                'status' => 'ACTIVE'
             ];
 
             if($model->save($data) === false)
@@ -52,6 +54,20 @@ class Account extends Controller
 
     public function userlogin()
     {
+        $time = new Time('now');
+
+        echo $time->getYear(); 
+        echo "\n";      
+        echo $time->getMonth();   
+        echo "\n";   
+        echo $time->getDay(); 
+        echo "\n";       
+        echo $time->getHour();    
+        echo "\n";   
+        echo $time->getMinute();   
+        echo "\n";  
+        echo $time->getSecond(); 
+
         $accountModel = new AccountModel();
         $appointmentModel = new AppointmentModel();
 
@@ -68,8 +84,6 @@ class Account extends Controller
             $result = $accountModel->checkAccount($emailaddress, $password);
             if(isset($result))
             {
-                $session = \Config\Services::session();
-
                 $newdata = [
                     'accountid' => $result->id,
                     'username'  => $result->username,
@@ -77,10 +91,19 @@ class Account extends Controller
                     'logged_in' => TRUE
                 ];
             
+                $session = \Config\Services::session();
                 $session->set($newdata);
 
                 if(!strcmp($session->get('username'), "admin"))
                 {
+
+                    $model = new StatisticsModel();
+
+                    $result = $model->getTotalMonthlyEarnings();
+
+
+
+                    
                     echo view('templates/admin/header');
                     echo view('admin/dashboard');
                     echo view('templates/admin/footer');
@@ -111,7 +134,6 @@ class Account extends Controller
     public function userlogout()
     {
         $session = \Config\Services::session();
-
         $session->destroy();
 
         echo view('login/loginaccount');  
@@ -154,6 +176,27 @@ class Account extends Controller
         else
         {
             echo view('login/forgotpassword');     
+        }
+    }
+
+    public function viewaccount($accountid)
+    {
+        $model = new AccountModel();
+
+        $result = $model->getAccount($accountid);
+
+        $session = \Config\Services::session();
+        $emailaddress = $session->get('email');
+
+        if(!strcmp($emailaddress, "admin@mail.com"))
+        {
+            echo view('templates/admin/header'); 
+            return view('profile/adminview', ['accountlist' => $result]);   
+        }
+        else
+        {
+            echo view('templates/user/header');
+            return view('profile/userprofile', ['accountlist' => $result]);    
         }
     }
 }

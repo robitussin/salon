@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Dashboard</title>
+    <title>Brusko Salon</title>
     <!-- Custom fonts for this template-->
     <link href="<?= base_url('assets/adminassets/vendor/fontawesome-free/css/all.min.css'); ?>" rel="stylesheet" type="text/css">
     <link
@@ -18,6 +18,9 @@
 
     <!-- Custom styles for this template-->
     <link href="<?= base_url('assets/adminassets/css/sb-admin-2.min.css'); ?>" rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="<?= base_url('assets/adminassets/css/userprofile.css'); ?>" rel="stylesheet">
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
@@ -70,7 +73,7 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Options:</h6>
-                        <a class="collapse-item" href="<?= base_url('admin/manageappointment'); ?>">Manage</a>
+                        <a class="collapse-item" href="<?= base_url('admin/manageallappointments'); ?>">Manage</a>
                     </div>
                 </div>
             </li>
@@ -86,32 +89,10 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Options:</h6>
-                        <a class="collapse-item" href="utilities-color.html">Manage</a>
+                        <a class="collapse-item"  href="<?= base_url('admin/manageallaccounts'); ?>">Manage</a>
                         <a class="collapse-item" href="utilities-animation.html">Change Password</a>
                     </div>
                 </div>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Addons
-            </div>
-            
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="charts.html">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Charts</span></a>
-            </li>
-
-            <!-- Nav Item - Tables -->
-            <li class="nav-item">
-                <a class="nav-link" href="tables.html">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span></a>
             </li>
 
             <!-- Divider -->

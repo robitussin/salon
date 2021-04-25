@@ -5,41 +5,21 @@
                     <h1 class="h3 mb-4 text-gray-800">Create an appointment</h1>
                     <h6 class="m-0 font-weight-bold text-primary">Choose Date and Time</h6>    
 
-                    <form class="user" action="<?= base_url('appointment/createappointment'); ?>" method="post">
+                    <form class="user" id="submitform" action="<?= base_url('appointment/createappointment'); ?>" method="post">
                         <div class="card-body">
                             <input id="dateinput" width="312" name="datetime" required>
                             <script>
                                 $('#dateinput').datetimepicker({
                                     datepicker: { showOtherMonths: true },
                                     modal: true,
-                                    footer: true
+                                    footer: true,
+                                    format:'yyyy/mm/dd hh:mm:ss',
                                 });
                             </script> 
                         </div>
 
                         <h6 class="m-0 font-weight-bold text-primary">Choose Service</h6>
                         </br>
-                        <!--
-                        <div class="card-body">
-                            <div class="dropdown mb-4">
-                                <button class="btn btn-primary dropdown-toggle" type="button"
-                                    id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="false">
-                                    HELLO
-                                </button>
-                                <div class="dropdown-menu animated--fade-in"
-                                    aria-labelledby="dropdownMenuButton">
-                                    <?php if (! empty($servicelist)) : ?>
-                                        <?php foreach ($servicelist as $field) : ?>
-                                            <a class="dropdown-item"><?= $field->servicename ?></a>
-                                        <?php endforeach ?>
-                                    <?php endif ?>
-                                    
-                                </div>
-                            </div>
-                        </div>
-                                        -->
-
 
                         <div class="row">                 
                             <?php if (! empty($servicelist)) : ?>
@@ -64,12 +44,32 @@
                                 <?php endforeach ?>   
                             <?php endif ?>           
                         </div>
-                            
-                        <button class="btn btn-success btn-icon-split" type="submit" value="Submit">
-                        <span class="icon text-white-50">
-                        <i class="fas fa-check"></i>
-                        </span>
+        
+                        <button class="btn btn-success btn-icon-split" type="button" data-toggle="modal" data-target="#confirm-submit">
+                            <span class="icon text-white-50">
+                            <i class="fas fa-check"></i>
+                            </span>
                         <span class="text">Submit</span>
+                        </button>
+                                                <!-- Logout Modal-->
+                        <div class="modal fade" id="confirm-submit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Are you sure?</h5>
+                                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">Select "Submit" to create an appointment.</div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-success" type="submit" id="submit">Submit</button>
+                                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </form>
                 </div>
                 <!-- /.container-fluid -->
@@ -135,6 +135,9 @@
     <!-- Page level custom scripts -->
     <script src="<?= base_url('assets/adminassets/js/demo/chart-area-demo.js'); ?>"></script>
     <script src="<?= base_url('assets/adminassets/js/demo/chart-pie-demo.js'); ?>"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="<?= base_url('assets/adminassets/js/formsubmit.js'); ?>"></script>
 </body>
 
 </html>

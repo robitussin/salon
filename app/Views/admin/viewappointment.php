@@ -1,167 +1,33 @@
-<!-- Begin Page Content -->
-<div class="container-fluid">
-    <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">My Appointments</h1>
-    </div>
-
-    <!-- Content Row -->
-    <div class="row">
-
-        <!-- Earnings (Monthly) Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-primary shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                Total Appointments</div>
-                            <?php if (! empty($appointmentlist)) : ?>
-                                <?php $totalappoinments = 0; ?>
-                                <?php foreach ($appointmentlist as $field) : ?>                                
-                                        <?php $totalappoinments++; ?>
-                                <?php endforeach ?>                             
-                                <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $totalappoinments; ?></div>
-                            <?php else: ?> 
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
-                            <?php endif ?>     
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                        </div>
+<div class="wrapper bg-white mt-sm-5">
+    <h4 class="pb-4 border-bottom">Appointment Info </h4>
+    <div class="py-2">
+        <form method="post" action ="<?= base_url('admin/changeappointmentstatus'); ?>">
+            <?php if(! empty($appointmentlist)): ?>
+                <div class="row py-2">
+                    <div class="col-md-6"> 
+                        <label for="firstname">User ID:</label> 
+                        <input type="text" class="bg-light form-control" value="<?= $appointmentlist->accountid ?>" name="userid" disabled> 
+                    </div>
+                    <div class="col-md-6"> 
+                        <label for="email">Service Type:</label> 
+                        <input type="text" class="bg-light form-control" value="<?= $appointmentlist->servicename ?>" name="servicename" disabled> 
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <!-- Earnings (Monthly) Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-success shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                Completed appointments</div>
-                            <?php if (! empty($appointmentlist)) : ?>
-                                <?php $completedappointments = 0; ?>
-                                <?php foreach ($appointmentlist as $field) : ?>
-                                    <?php if(!strcmp($field->status, "COMPLETE")): ?>                                
-                                        <?php $completedappointments++; ?>
-                                    <?php endif ?>   
-                                <?php endforeach ?>                             
-                                <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $completedappointments; ?></div>
-                            <?php else: ?> 
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
-                            <?php endif ?> 
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-check fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
+                <div class="row py-2">
+                    <div class="col-md-6 pt-md-0 pt-3"> <label for="phone">DateTime:</label> <input type="text" class="bg-light form-control" value="<?= $appointmentlist->datetime ?>" name="datetime" disabled> </div>
+                    <div class="col-md-6 pt-md-0 pt-3"> <label for="phone">Status:</label> <input type="text" class="bg-light form-control" value="<?= $appointmentlist->status ?>" disabled></div>
                 </div>
-            </div>
-        </div>
-
-        <!-- Earnings (Monthly) Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-danger shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Cancelled Appointments
-                            </div>
-                            <?php if (! empty($appointmentlist)) : ?>
-                                <?php $cancelledappointments = 0; ?>
-                                <?php foreach ($appointmentlist as $field) : ?>
-                                    <?php if(!strcmp($field->status, "CANCELLED")): ?>                                
-                                        <?php $cancelledappointments++; ?>
-                                    <?php endif ?>   
-                                <?php endforeach ?>                             
-                                <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $cancelledappointments; ?></div>
-                            <?php else: ?> 
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
-                            <?php endif ?> 
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-ban fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
+                <div class="py-3 pb-4 border-bottom"> 
+                    <?php if(!strcmp($appointmentlist->status, "PENDING")): ?>
+                        <button class="btn danger" type="submit">Cancel Appointment</button>
+                        <input type="text" class="bg-light form-control" value="<?= $appointmentlist->id ?>" name="appointmentid" hidden> 
+                    <?php endif ?>
+                    <button class="btn border button" class="type" href="<? base_url('admin/manageallappointments'); ?>">Back</button> 
                 </div>
-            </div>
-        </div>
-
-        <!-- Pending Requests Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-warning shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                Pending Appointments</div>
-                                <?php if (! empty($appointmentlist)) : ?>
-                                    <?php $pendingappointments = 0; ?>
-                                    <?php foreach ($appointmentlist as $field) : ?>
-                                        <?php if(!strcmp($field->status, "PENDING")): ?>                                
-                                            <?php $pendingappointments++; ?>
-                                        <?php endif ?>   
-                                    <?php endforeach ?>                             
-                                <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $pendingappointments; ?></div>
-                                <?php else: ?> 
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
-                                <?php endif ?> 
-                            </div>
-                        <div class="col-auto">
-                            <i class="fas fa-exclamation fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Content Row -->
-    <?php if (! empty($appointmentlist)) : ?>
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">My Appointment History</h1>
-    </div>
-    <?php endif ?>    
-    
-    <div class="row">
-        
-        <!-- Border Bottom Utilities -->
-        <?php if (! empty($appointmentlist)) : ?>
-            <?php foreach ($appointmentlist as $field) : ?> 
-                <div class="col-lg-6">
-                    <?php if(!strcmp($field->status, "PENDING")): ?>
-                        <div class="card mb-4 py-3 border-bottom-warning">
-                            <div class="card-body">
-                                <p class="card-text"> <?= $field->servicename ?></p> 
-                                <p class="card-text"> Appointment date: <?= $field->datetime ?></p> 
-                            </div>
-                        </div>  
-                    <?php elseif(!strcmp($field->status, "CANCELLED")): ?>
-                        <div class="card mb-4 py-3 border-bottom-danger">
-                            <div class="card-body">
-                                <p class="card-text"> <?= $field->servicename ?></p> 
-                                <p class="card-text">  Appointment date: <?= $field->datetime ?></p>                       
-                            </div>
-                        </div>
-                    <?php elseif(!strcmp($field->status, "COMPLETE")): ?>
-                        <div class="card mb-4 py-3 border-bottom-success">
-                            <div class="card-body">
-                                <p class="card-text"> <?= $field->servicename ?></p> 
-                                <p class="card-text"> Appointment date: <?= $field->datetime ?></p> 
-                            </div>
-                        </div>
-                    <?php endif ?>  
-                </div>
-            <?php endforeach ?>   
-        <?php endif ?>     
-    
+            <?php endif ?>
+        </form>
     </div>
 </div>
-<!-- /.container-fluid -->
-
 
 </div>
             <!-- End of Main Content -->
@@ -170,7 +36,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Brusko fix salon 2021</span>
+                        <span>Copyright &copy; Your Website 2020</span>
                     </div>
                 </div>
             </footer>
@@ -223,6 +89,15 @@
     <!-- Page level custom scripts -->
     <script src="<?= base_url('assets/adminassets/js/demo/chart-area-demo.js'); ?>"></script>
     <script src="<?= base_url('assets/adminassets/js/demo/chart-pie-demo.js'); ?>"></script>
+
+    <!-- Page level plugins -->
+    <script src="<?= base_url('assets/adminassets/vendor/datatables/jquery.dataTables.min.js'); ?>"></script>
+    <script src="<?= base_url('assets/adminassets/vendor/datatables/dataTables.bootstrap4.min.js'); ?>"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="<?= base_url('assets/adminassets/js/demo/datatables-demo.js'); ?>"></script>
+
+
 </body>
 
 </html>

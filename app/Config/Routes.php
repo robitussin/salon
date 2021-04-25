@@ -35,6 +35,8 @@ $routes->setAutoRoute(true);
 $routes->get('/', 'Home::index');
 $routes->match(['get', 'post'], 'signup/createaccount', 'Account::usersignup');
 $routes->match(['get', 'post'], 'login/loginaccount', 'Account::userlogin');
+$routes->get('account/viewaccount/(:num)', 'Account::viewaccount/$1');
+$routes->get('admin/viewappointment/(:num)', 'Admin::viewappointment/$1');
 
 
 /*

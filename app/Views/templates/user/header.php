@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<?php $session = \Config\Services::session(); ?>
 <head>
 
     <meta charset="utf-8">
@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Dashboard</title>
+    <title>Brusko Salon</title>
     <!-- Custom fonts for this template-->
     <link href="<?= base_url('assets/adminassets/vendor/fontawesome-free/css/all.min.css'); ?>" rel="stylesheet" type="text/css">
     <link
@@ -18,6 +18,7 @@
 
     <!-- Custom styles for this template-->
     <link href="<?= base_url('assets/adminassets/css/sb-admin-2.min.css'); ?>" rel="stylesheet">
+    <link href="<?= base_url('assets/adminassets/css/userprofile.css'); ?>" rel="stylesheet">
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
@@ -77,8 +78,7 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Options:</h6>
-                        <a class="collapse-item" href="utilities-color.html">View</a>
-                        <a class="collapse-item" href="utilities-border.html">Update</a>
+                        <a class="collapse-item" href="<?= base_url('account/viewaccount/'. $session->get('accountid')); ?>">View</a>
                         <a class="collapse-item" href="utilities-animation.html">Change Password</a>
                     </div>
                 </div>

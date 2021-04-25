@@ -21,7 +21,7 @@ class Appointment extends Controller
         ]))
         {
             $session = \Config\Services::session();
-
+          
             $accountid = $session->get('accountid');
 
             foreach($this->request->getPost('servicename') as $field) 

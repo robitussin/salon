@@ -33,7 +33,11 @@ class AppointmentModel extends Model
         $db = \Config\Database::connect();
         $builder = $db->table('appointment');
 
-        if(!strcmp($accountid, "admin"))
+        $session = \Config\Services::session();
+
+        $username = $session->get('email');
+
+        if(!strcmp($username, "admin@mail.com"))
         {
             $query = $builder->get();
         }
@@ -45,5 +49,31 @@ class AppointmentModel extends Model
         }
         
         return $query->getResult();
+    }
+
+    public function retrieveAppointmentbyappointmentid($appointmentid)
+    {
+        $db = \Config\Database::connect();
+        $builder = $db->table('appointment');
+
+        $builder->select('id, accountid, servicename, datetime, status');
+        $builder->where('id', $appointmentid);
+        $query = $builder->get();
+        
+        return $query->getRow();
+    }
+
+    
+    public function updateappointmentstatus($appointmentid)
+    {
+        $db = \Config\Database::connect();
+        $builder = $db->table('appointment');
+;
+        $data = [
+            'status' => 'CANCELLED',
+        ];
+
+        $builder->where('id', $appointmentid);
+        $builder->update($data);
     }
 }

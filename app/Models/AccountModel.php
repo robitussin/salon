@@ -48,4 +48,50 @@ class AccountModel extends Model
         $query = $builder->get();
         return $query->getRow();
     }
+
+    public function getAccount($accountID)
+    {
+        $db = \Config\Database::connect();
+        $builder = $db->table('accounts');
+
+        if(strlen($accountID))
+        {
+            $builder->select('id, emailaddress, username, password, contactnumber, status');
+            $builder->where('id', $accountID);
+            $query = $builder->get(); 
+            return $query->getRow();
+        }
+        else
+        {
+            $query = $builder->get(); 
+            return $query->getResult();
+        }
+    }
+
+    public function updateAccount($accountid,$username,$contactnumber)
+    {
+        $db = \Config\Database::connect();
+        $builder = $db->table('accounts');
+
+        $data = [
+            'username' => $username,
+            'contactnumber' => $contactnumber,
+        ];
+
+        $builder->where('id', $accountid);
+        $builder->update($data);
+    }
+
+    public function updateaccountstatus($account, $status)
+    {
+        $db = \Config\Database::connect();
+        $builder = $db->table('accounts');
+;
+        $data = [
+            'status' => $status,
+        ];
+
+        $builder->where('id', $account);
+        $builder->update($data);
+    }
 }

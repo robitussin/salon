@@ -4,43 +4,46 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Appointment History</h1>
-                    <p class="mb-4">Click on the appointment id to cancel pending appointments</p>
+                    <h1 class="h3 mb-2 text-gray-800">Manage accounts</h1>
+                    <p class="mb-4">Click on the account id to update user information or deactive a user</p>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Appointment List</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Account List</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Appointment ID</th>
                                             <th>Account ID</th>
-                                            <th>Service Name</th>
-                                            <th>Date Time</th>
+                                            <th>Email Address</th>
+                                            <th>Username</th>
+                                            <th>Password</th>
+                                            <th>Contact Number</th>
                                             <th>Status</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>Appointment ID</th>
                                             <th>Account ID</th>
-                                            <th>Service Name</th>
-                                            <th>Date Time</th>
+                                            <th>Email Address</th>
+                                            <th>Username</th>
+                                            <th>Password</th>
+                                            <th>Contact Number</th>
                                             <th>Status</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                    <?php if(! empty($appointmentlist)): ?>
-                                        <?php foreach($appointmentlist as $field): ?>
+                                    <?php if(! empty($accountlist)): ?>
+                                        <?php foreach($accountlist as $field): ?>
                                                 <tr>
-                                                    <td><a href="<?= base_url('admin/viewappointment/'.$field->id); ?>"><?= $field->id ?></a></td>
-                                                    <td><?= $field->accountid ?></td>
-                                                    <td><?= $field->servicename ?></td>
-                                                    <td><?= $field->datetime ?></td>
+                                                    <td><a href="<?= base_url('account/viewaccount/'.$field->id); ?>"><?= $field->id ?></a></td>
+                                                    <td><?= $field->emailaddress ?></td>
+                                                    <td><?= $field->username ?></td>
+                                                    <td><?= $field->password ?></td>
+                                                    <td><?= $field->contactnumber ?></td>
                                                     <td><?= $field->status ?></td>
                                                 </tr>
                                         <?php endforeach ?>

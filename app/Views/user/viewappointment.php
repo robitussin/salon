@@ -135,22 +135,22 @@
                     <?php if(!strcmp($field->status, "PENDING")): ?>
                         <div class="card mb-4 py-3 border-bottom-warning">
                             <div class="card-body">
-                                <p class="card-text"> <?= $field->servicename ?></p> 
-                                <p class="card-text"> Appointment date: <?= $field->datetime ?></p> 
+                                <p class="card-text"> <b>Service Type: </b><?= $field->servicename ?></p> 
+                                <p class="card-text"> <b>Appointment date: </b><?= $field->datetime ?></p> 
                             </div>
                         </div>  
                     <?php elseif(!strcmp($field->status, "CANCELLED")): ?>
                         <div class="card mb-4 py-3 border-bottom-danger">
                             <div class="card-body">
-                                <p class="card-text"> <?= $field->servicename ?></p> 
-                                <p class="card-text">  Appointment date: <?= $field->datetime ?></p>                       
+                                <p class="card-text"><b> Service Type: </b><?= $field->servicename ?></p> 
+                                <p class="card-text"> <b>Appointment date: </b><?= $field->datetime ?></p>                       
                             </div>
                         </div>
                     <?php elseif(!strcmp($field->status, "COMPLETE")): ?>
                         <div class="card mb-4 py-3 border-bottom-success">
                             <div class="card-body">
-                                <p class="card-text"> <?= $field->servicename ?></p> 
-                                <p class="card-text"> Appointment date: <?= $field->datetime ?></p> 
+                                <p class="card-text"><b> Service Type: </b><?= $field->servicename ?></p> 
+                                <p class="card-text"> <b>Appointment date: </b><?= $field->datetime ?></p> 
                             </div>
                         </div>
                     <?php endif ?>  

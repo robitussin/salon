@@ -2,7 +2,7 @@
 <div class="container-fluid">
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Dashboards</h1>
+    <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
 </div>
 
 
@@ -85,7 +85,7 @@
                         <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
                     </div>
                     <div class="col-auto">
-                        <i class="fas fa-comments fa-2x text-gray-300"></i>
+                        <i class="fas fa-exclamation fa-2x text-gray-300"></i>
                     </div>
                 </div>
             </div>
