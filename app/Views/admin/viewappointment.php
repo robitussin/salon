@@ -1,7 +1,7 @@
 <div class="wrapper bg-white mt-sm-5">
     <h4 class="pb-4 border-bottom">Appointment Info </h4>
     <div class="py-2">
-        <form method="post" action ="<?= base_url('admin/changeappointmentstatus'); ?>">
+        <form method="post" action ="<?= base_url('admin/changeappointmentstatus'); ?>" id="submitform">
             <?php if(! empty($appointmentlist)): ?>
                 <div class="row py-2">
                     <div class="col-md-6"> 
@@ -17,14 +17,57 @@
                     <div class="col-md-6 pt-md-0 pt-3"> <label for="phone">DateTime:</label> <input type="text" class="bg-light form-control" value="<?= $appointmentlist->datetime ?>" name="datetime" disabled> </div>
                     <div class="col-md-6 pt-md-0 pt-3"> <label for="phone">Status:</label> <input type="text" class="bg-light form-control" value="<?= $appointmentlist->status ?>" disabled></div>
                 </div>
-                <div class="py-3 pb-4 border-bottom"> 
-                    <?php if(!strcmp($appointmentlist->status, "PENDING")): ?>
-                        <button class="btn danger" type="submit">Cancel Appointment</button>
-                        <input type="text" class="bg-light form-control" value="<?= $appointmentlist->id ?>" name="appointmentid" hidden> 
+
+                <div class="dropdown mb-4">
+                    <label>Change Status:</label> 
+                    <select form ="submitform" name="appointmentstatus">
+                        <option selected disabled>Select Status</option>
+                        <option name= value="PENDING">PENDING</option>
+                        <option value="CANCELLED">CANCELLED</option>
+                        <option value="COMPLETE">COMPLETE</option>
+                    </select>
+
+                    <label>Assign Employee:</label> 
+                    <?php if(! empty($employeelist)): ?>
+                        <select form ="submitform" name="employeeid">
+                            <?php foreach($employeelist as $field): ?>
+                                <option value="<?= $field->id ?>">
+                                <?= $field->name ?> 
+                                <?php if(!$field->id == 0): ?>
+                                    - <?= $field->position ?>
+                                <?php endif ?>
+                            </option>
+                            <?php endforeach ?>
+                        </select>
                     <?php endif ?>
+                </div>
+                <div class="py-3 pb-4 border-bottom"> 
+                    <button class="btn btn-success " type="button" data-toggle="modal" data-target="#confirm-update">Update Appointment</button>
+                    <input type="text" class="bg-light form-control" value="<?= $appointmentlist->id ?>" name="appointmentid" hidden> 
                     <button class="btn border button" class="type" href="<? base_url('admin/manageallappointments'); ?>">Back</button> 
                 </div>
             <?php endif ?>
+
+            <!-- Submit Modal-->
+            <div class="modal fade" id="confirm-update" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Are you sure?</h5>
+                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">Select "Update" to apply changes</div>
+                        <div class="modal-footer">
+                            <button class="btn btn-success" id="submit" type ="submit" name="deactivateaccountbutton" value="deactivateaccountbutton">Update</a>
+                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>            
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </form>
     </div>
 </div>

@@ -56,18 +56,6 @@ class Account extends Controller
     {
         $time = new Time('now');
 
-        echo $time->getYear(); 
-        echo "\n";      
-        echo $time->getMonth();   
-        echo "\n";   
-        echo $time->getDay(); 
-        echo "\n";       
-        echo $time->getHour();    
-        echo "\n";   
-        echo $time->getMinute();   
-        echo "\n";  
-        echo $time->getSecond(); 
-
         $accountModel = new AccountModel();
         $appointmentModel = new AppointmentModel();
 
@@ -101,9 +89,6 @@ class Account extends Controller
 
                     $result = $model->getTotalMonthlyEarnings();
 
-
-
-                    
                     echo view('templates/admin/header');
                     echo view('admin/dashboard');
                     echo view('templates/admin/footer');

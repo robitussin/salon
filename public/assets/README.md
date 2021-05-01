@@ -1,29 +1,29 @@
-# [Start Bootstrap - One Page Wonder](https://startbootstrap.com/theme/one-page-wonder/)
+# [Start Bootstrap - New Age](https://startbootstrap.com/theme/new-age/)
 
-[One Page Wonder](https://startbootstrap.com/theme/one-page-wonder/) is a basic one page template for [Bootstrap](https://getbootstrap.com/) created by [Start Bootstrap](https://startbootstrap.com/).
+[New Age](https://startbootstrap.com/theme/new-age/) is a web app landing page theme for [Bootstrap](https://getbootstrap.com/) created by [Start Bootstrap](https://startbootstrap.com/).
 
 ## Preview
 
-[![One Page Wonder Preview](https://assets.startbootstrap.com/img/screenshots/themes/one-page-wonder.png)](https://startbootstrap.github.io/startbootstrap-one-page-wonder/)
+[![New Age Preview](https://assets.startbootstrap.com/img/screenshots/themes/new-age.png)](https://startbootstrap.github.io/startbootstrap-new-age/)
 
-**[View Live Preview](https://startbootstrap.github.io/startbootstrap-one-page-wonder/)**
+**[View Live Preview](https://startbootstrap.github.io/startbootstrap-new-age/)**
 
 ## Status
 
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/StartBootstrap/startbootstrap-one-page-wonder/master/LICENSE)
-[![npm version](https://img.shields.io/npm/v/startbootstrap-one-page-wonder.svg)](https://www.npmjs.com/package/startbootstrap-one-page-wonder)
-[![Build Status](https://travis-ci.org/StartBootstrap/startbootstrap-one-page-wonder.svg?branch=master)](https://travis-ci.org/StartBootstrap/startbootstrap-one-page-wonder)
-[![dependencies Status](https://david-dm.org/StartBootstrap/startbootstrap-one-page-wonder/status.svg)](https://david-dm.org/StartBootstrap/startbootstrap-one-page-wonder)
-[![devDependencies Status](https://david-dm.org/StartBootstrap/startbootstrap-one-page-wonder/dev-status.svg)](https://david-dm.org/StartBootstrap/startbootstrap-one-page-wonder?type=dev)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/StartBootstrap/startbootstrap-new-age/master/LICENSE)
+[![npm version](https://img.shields.io/npm/v/startbootstrap-new-age.svg)](https://www.npmjs.com/package/startbootstrap-new-age)
+[![Build Status](https://travis-ci.org/StartBootstrap/startbootstrap-new-age.svg?branch=master)](https://travis-ci.org/StartBootstrap/startbootstrap-new-age)
+[![dependencies Status](https://david-dm.org/StartBootstrap/startbootstrap-new-age/status.svg)](https://david-dm.org/StartBootstrap/startbootstrap-new-age)
+[![devDependencies Status](https://david-dm.org/StartBootstrap/startbootstrap-new-age/dev-status.svg)](https://david-dm.org/StartBootstrap/startbootstrap-new-age?type=dev)
 
 ## Download and Installation
 
 To begin using this template, choose one of the following options to get started:
 
-* [Download the latest release on Start Bootstrap](https://startbootstrap.com/theme/one-page-wonder/)
-* Install via npm: `npm i startbootstrap-one-page-wonder`
-* Clone the repo: `git clone https://github.com/StartBootstrap/startbootstrap-one-page-wonder.git`
-* [Fork, Clone, or Download on GitHub](https://github.com/StartBootstrap/startbootstrap-one-page-wonder)
+* [Download the latest release on Start Bootstrap](https://startbootstrap.com/theme/new-age/)
+* Install via npm: `npm i startbootstrap-new-age`
+* Clone the repo: `git clone https://github.com/StartBootstrap/startbootstrap-new-age.git`
+* [Fork, Clone, or Download on GitHub](https://github.com/StartBootstrap/startbootstrap-new-age)
 
 ## Usage
 
@@ -47,7 +47,7 @@ You must have npm installed globally in order to use this build environment.
 
 ## Bugs and Issues
 
-Have a bug or an issue with this template? [Open a new issue](https://github.com/StartBootstrap/startbootstrap-one-page-wonder/issues) here on GitHub or leave a comment on the [template overview page at Start Bootstrap](https://startbootstrap.com/theme/one-page-wonder/).
+Have a bug or an issue with this template? [Open a new issue](https://github.com/StartBootstrap/startbootstrap-new-age/issues) here on GitHub or leave a comment on the [template overview page at Start Bootstrap](https://startbootstrap.com/theme/new-age/).
 
 ## About
 
@@ -66,4 +66,4 @@ Start Bootstrap is based on the [Bootstrap](https://getbootstrap.com/) framework
 
 ## Copyright and License
 
-Copyright 2013-2020 Start Bootstrap LLC. Code released under the [MIT](https://github.com/StartBootstrap/startbootstrap-one-page-wonder/blob/gh-pages/LICENSE) license.
+Copyright 2013-2020 Start Bootstrap LLC. Code released under the [MIT](https://github.com/StartBootstrap/startbootstrap-new-age/blob/gh-pages/LICENSE) license.

@@ -80,17 +80,32 @@
 
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                    aria-expanded="true" aria-controls="collapseUtilities">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAccounts"
+                    aria-expanded="true" aria-controls="collapseAccounts">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Account</span>
                 </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+                <div id="collapseAccounts" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Options:</h6>
                         <a class="collapse-item"  href="<?= base_url('admin/manageallaccounts'); ?>">Manage</a>
-                        <a class="collapse-item" href="utilities-animation.html">Change Password</a>
+                    </div>
+                </div>
+            </li>
+
+                        <!-- Nav Item - Utilities Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEmployee"
+                    aria-expanded="true" aria-controls="collapseEmployee">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Employee</span>
+                </a>
+                <div id="collapseEmployee" class="collapse" aria-labelledby="headingUtilities"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Options:</h6>
+                        <a class="collapse-item"  href="<?= base_url('admin/manageallemployees'); ?>">Manage</a>
                     </div>
                 </div>
             </li>

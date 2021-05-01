@@ -18,18 +18,20 @@
                                     <thead>
                                         <tr>
                                             <th>Appointment ID</th>
-                                            <th>Account ID</th>
+                                            <th>User Account ID</th>
                                             <th>Service Name</th>
                                             <th>Date Time</th>
+                                            <th>Employee Assigned</th>
                                             <th>Status</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
                                             <th>Appointment ID</th>
-                                            <th>Account ID</th>
+                                            <th>User Account ID</th>
                                             <th>Service Name</th>
                                             <th>Date Time</th>
+                                            <th>Employee Assigned</th>
                                             <th>Status</th>
                                         </tr>
                                     </tfoot>
@@ -41,6 +43,7 @@
                                                     <td><?= $field->accountid ?></td>
                                                     <td><?= $field->servicename ?></td>
                                                     <td><?= $field->datetime ?></td>
+                                                    <td><?= $field->employeeid ?></td>
                                                     <td><?= $field->status ?></td>
                                                 </tr>
                                         <?php endforeach ?>

@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\EmployeeModel;
 use App\Models\AppointmentModel;
 use App\Models\AccountModel;
 use CodeIgniter\Controller;
@@ -50,12 +51,16 @@ class Admin extends Controller
 
     public function viewappointment($appointmentid)
     {
-        $model = new AppointmentModel();
+        $appointmentModel = new AppointmentModel();
         
-        $result = $model->retrieveAppointmentbyappointmentid($appointmentid);
+        $result = $appointmentModel->retrieveAppointmentbyappointmentid($appointmentid);
+
+        $employeeModel = new EmployeeModel();
+
+        $result2 = $employeeModel->getEmployee("");
 
         echo view('templates/admin/header');
-        return view('admin/viewappointment', ['appointmentlist' => $result]);
+        return view('admin/viewappointment', ['appointmentlist' => $result, 'employeelist' => $result2]);
     }
 
     public function changeappointmentstatus()
@@ -66,7 +71,11 @@ class Admin extends Controller
         {
             $appointmentid =  $this->request->getPost('appointmentid');
             
-            $model->updateappointmentstatus($appointmentid);
+            $appointmentstatus =  $this->request->getPost('appointmentstatus');
+
+            $employeeid =  $this->request->getPost('employeeid');
+
+            $model->updateappointmentstatus($appointmentid, $appointmentstatus, $employeeid);
 
             echo $this->manageallappointments();
         }
@@ -132,5 +141,57 @@ class Admin extends Controller
                 return view('user/viewappointment', ['appointmentlist' => $result]);
             }
         }
+    }
+
+    public function manageallemployees()
+    {
+        $model = new EmployeeModel();
+        
+        $result = $model->getEmployee("");
+
+        echo view('templates/admin/header');
+        return view('admin/manageemployee', ['employeelist' => $result]);
+    }
+
+    public function viewemployeedashboard($employeeid)
+    {   
+        $employeeModel = new EmployeeModel();
+        
+        $appoinmentModel = new AppointmentModel();
+
+        $result1 = $employeeModel->getEmployee($employeeid);
+    
+        $status = "COMPLETE";
+        $result2 = $employeeModel->getTotalEmployeeEarnings($employeeid, $status);
+
+        $status = "PENDING";
+        $result3 = $appoinmentModel->countAppointment($employeeid, $status);
+
+        $status = NULL;
+        $result4 = $appoinmentModel->countAppointment($employeeid, $status);
+
+        $status = "COMPLETE";
+        $result5 = $appoinmentModel->countAppointment($employeeid, $status);
+
+        $percentCompleted = 0;
+        if($result4->id > 0)
+        {
+            $percentCompleted = ($result5->id / $result4->id) * 100;
+        }
+        $percentCompleted = number_format($percentCompleted, 2);
+
+        $totalearnings = $result2->servicecost * .30; // 70 percent cut for employees
+
+        $result = [
+            'name' => $result1->name,
+            'totalearnings' => $totalearnings,
+            'totalpendingappointments' => $result3->id,
+            'totalappointmentsassigned' => $result4->id,
+            'percentcompleted' => $percentCompleted,
+        ];
+
+        echo view('templates/admin/header');
+        return view('admin/employeedashboard', ['employeedata' => $result]);
+        
     }
 }

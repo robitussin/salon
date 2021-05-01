@@ -33,7 +33,7 @@
                                                 <p class="card-text"><?= $field->description ?></p>                                             
                                                 <div class="form-check">
                                                     <label class="form-check-label" for="check1">
-                                                    <input type="checkbox" class="form-check-input" id="check1" name="servicename[]" value=<?= $field->servicename ?>>   
+                                                    <input type="checkbox" class="form-check-input" id="check1" name="servicename[]" value="<?= $field->servicename ."-". $field->id ?>">    
                                                     <p class="card-text">Choose <?= $field->servicename ?></p>               
                                                     </label>
                                                     </div>

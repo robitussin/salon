@@ -14,18 +14,23 @@ class AppointmentModel extends Model
         return $query->getResult();
     }
 
-    public function insertAppointment($dateandtime, $servicename, $accountid)
+    public function insertAppointment($dateandtime, $service, $accountid)
     {
+        list($servicename, $serviceid) = explode("-", $service);
+
         $data = [
             'accountid' => $accountid,
             'servicename'  => $servicename,
+            'serviceid' => $serviceid, 
             'datetime' => $dateandtime,
-            'status' => 'PENDING'
+            'status' => 'PENDING',
+            'employeeid' => '0',
         ];
         
         $db = \Config\Database::connect();
         $builder = $db->table('appointment');
-        $query = $builder->insert($data);        
+        $query = $builder->insert($data);       
+        
     }
 
     public function retrieveAppointment($accountid)
@@ -64,16 +69,34 @@ class AppointmentModel extends Model
     }
 
     
-    public function updateappointmentstatus($appointmentid)
+    public function updateappointmentstatus($appointmentid, $appointmentstatus, $employeeid)
     {
         $db = \Config\Database::connect();
         $builder = $db->table('appointment');
 ;
         $data = [
-            'status' => 'CANCELLED',
+            'status' => $appointmentstatus,
+            'employeeid' =>  $employeeid,
         ];
 
         $builder->where('id', $appointmentid);
         $builder->update($data);
+    }
+
+    public function countAppointment($id, $status)
+    {
+        $db = \Config\Database::connect();
+        $builder = $db->table('appointment');
+
+        $builder->selectCount('id');
+        $builder->where('employeeid', $id);
+
+        if(isset($status))
+        {
+            $builder->where('status', $status);
+        }
+        
+        $query = $builder->get();
+        return $query->getRow();
     }
 }

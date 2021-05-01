@@ -24,6 +24,8 @@ class Appointment extends Controller
           
             $accountid = $session->get('accountid');
 
+            var_dump($this->request->getPost('servicename'));
+            
             foreach($this->request->getPost('servicename') as $field) 
             {
                 $result = $model->insertAppointment($this->request->getPost('datetime'), $field, $accountid);
