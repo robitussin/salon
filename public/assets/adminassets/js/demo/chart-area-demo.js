@@ -28,7 +28,20 @@ function number_format(number, decimals, dec_point, thousands_sep) {
 }
 
 // Area Chart Example
-var ctx = document.getElementById("myAreaChart");
+var ctx = document.getElementById("EmployeeAreaChart");
+var januaryValue = $("#myInputJanuary").val();
+var februaryValue = $("#myInputFebruary").val();
+var marchValue = $("#myInputMarch").val();
+var aprilValue = $("#myInputApril").val();
+var mayValue = $("#myInputMay").val();
+var juneValue = $("#myInputJune").val();
+var julyValue = $("#myInputJuly").val();
+var augustValue = $("#myInputAugust").val();
+var septemberValue = $("#myInputSeptember").val();
+var octoberValue = $("#myInputOctober").val();
+var novemberValue = $("#myInputNovember").val();
+var decemberValue = $("#myInputDecember").val();
+
 var myLineChart = new Chart(ctx, {
   type: 'line',
   data: {
@@ -46,7 +59,8 @@ var myLineChart = new Chart(ctx, {
       pointHoverBorderColor: "rgba(78, 115, 223, 1)",
       pointHitRadius: 10,
       pointBorderWidth: 2,
-      data: [0, 10000, 5000, 15000, 10000, 20000, 15000, 25000, 20000, 30000, 25000, 40000],
+      //data: [0, 10000, 5000, 15000, 10000, 20000, 15000, 25000, 20000, 30000, 25000, 40000],
+      data: [januaryValue, februaryValue, marchValue, aprilValue, mayValue, juneValue, julyValue, augustValue, septemberValue, octoberValue, novemberValue, decemberValue],
     }],
   },
   options: {

@@ -164,23 +164,62 @@ class Admin extends Controller
         $status = "COMPLETE";
         $result2 = $employeeModel->getTotalEmployeeEarnings($employeeid, $status);
 
+        // get the total number of pending appointments.
         $status = "PENDING";
         $result3 = $appoinmentModel->countAppointment($employeeid, $status);
 
+        // get the total number of appointments regardless of status.
         $status = NULL;
         $result4 = $appoinmentModel->countAppointment($employeeid, $status);
 
+        // get the total number of completed appointments.
         $status = "COMPLETE";
         $result5 = $appoinmentModel->countAppointment($employeeid, $status);
+
+        $status = "COMPLETE";
+        $result6 = $employeeModel->getMonthlyTotalEmployeeEarnings($employeeid, $status);
 
         $percentCompleted = 0;
         if($result4->id > 0)
         {
             $percentCompleted = ($result5->id / $result4->id) * 100;
         }
+
         $percentCompleted = number_format($percentCompleted, 2);
 
         $totalearnings = $result2->servicecost * .30; // 70 percent cut for employees
+
+
+        $status = "COMPLETE";
+        $result7 = $employeeModel->getEmployeeRevenueSource($employeeid, $status);
+     
+        $percentHaircut = "";
+        $percentManicure = "";
+        $percentPedicure = "";
+        $percentMassage = "";
+        
+        foreach($result7 as $res)
+        {
+            if($result5->id > 0)
+            {
+                if(!strcmp(strtoupper($res->sourcename), "HAIRCUT"))
+                {
+                    $percentHaircut = ($res->sourcecount / $result5->id) * 100;
+                }
+                else if(!strcmp(strtoupper($res->sourcename), "MANICURE"))
+                {
+                    $percentManicure = ($res->sourcecount / $result5->id) * 100;
+                }
+                else if(!strcmp(strtoupper($res->sourcename), "PEDICURE"))
+                {
+                    $percentPedicure = ($res->sourcecount / $result5->id) * 100;
+                }
+                else if(!strcmp(strtoupper($res->sourcename), "MASSAGE"))
+                {
+                    $percentMassage = ($res->sourcecount / $result5->id) * 100;
+                }
+            }
+        }
 
         $result = [
             'name' => $result1->name,
@@ -188,10 +227,14 @@ class Admin extends Controller
             'totalpendingappointments' => $result3->id,
             'totalappointmentsassigned' => $result4->id,
             'percentcompleted' => $percentCompleted,
+            'percentHaircut' => $percentHaircut,
+            'percentManicure' => $percentManicure,
+            'percentPedicure' => $percentPedicure,
+            'percentMassage' => $percentMassage,
         ];
 
         echo view('templates/admin/header');
-        return view('admin/employeedashboard', ['employeedata' => $result]);
+        return view('admin/employeedashboard', ['employeedata' => $result, 'employeehistory' => $result6]);
         
     }
 }

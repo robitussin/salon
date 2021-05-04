@@ -4,16 +4,20 @@ Chart.defaults.global.defaultFontColor = '#858796';
 
 // Pie Chart Example
 var ctx = document.getElementById("myPieChart");
+var haircutValue = $("#percentHaircut").val();
+var manicureValue = $("#percentManicure").val();
+var pedicureValue = $("#percentPedicure").val();
+var massageValue = $("#percentMassage").val();
+
 var myPieChart = new Chart(ctx, {
   type: 'doughnut',
   data: {
     //labels: ["Direct", "Referral", "Social"],
-    labels: ["Haircut", "Manicure", "Pedicure"],
+    labels: ["Haircut", "Manicure", "Pedicure", "Massage"],
     datasets: [{
-      //data: [55, 30, 15],d
-      data: [10, 10, 80],
-      backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
-      hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
+      data: [haircutValue, manicureValue, pedicureValue, massageValue],
+      backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc', '#e8bd48'],
+      hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf', '#ba9a43'],
       hoverBorderColor: "rgba(234, 236, 244, 1)",
     }],
   },

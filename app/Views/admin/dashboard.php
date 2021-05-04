@@ -122,7 +122,7 @@
             <!-- Card Body -->
             <div class="card-body">
                 <div class="chart-area">
-                    <canvas id="myAreaChart"></canvas>
+                    <canvas id="AdminAreaChart"></canvas>
                 </div>
             </div>
         </div>

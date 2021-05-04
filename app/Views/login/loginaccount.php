@@ -44,11 +44,17 @@
 
                                     <div class="text-center">      
                                         <?php if (! empty($errors)) : ?>
-                                        <div class="alert alert-danger">
-                                        <?php foreach ($errors as $field => $error) : ?>
-                                        <p><?= $error ?></p>
-                                        <?php endforeach ?>
-                                        </div>
+                                            <div class="alert alert-danger">
+                                                <?php foreach ($errors as $field => $error) : ?>
+                                                <p><?= $error ?></p>
+                                                <?php endforeach ?>
+                                            </div>
+                                        <?php elseif (! empty($info)) : ?>
+                                            <div class="alert alert-success">
+                                                <?php foreach ($info as $field => $infomessage) : ?>
+                                                <p><?= $infomessage ?></p>
+                                                <?php endforeach ?>
+                                            </div>
                                         <?php endif ?>
                                     </div>
 

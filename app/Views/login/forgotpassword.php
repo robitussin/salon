@@ -41,7 +41,7 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-2">Forgot Your Password?</h1>
                                         <p class="mb-4">We get it, stuff happens. Just enter your email address below
-                                            and we'll send you a link to reset your password!</p>
+                                            and we'll send your password to you!</p>
                                     </div>
 
                                     <div class="text-center">      
@@ -60,7 +60,7 @@
                                                 id="exampleInputEmail" aria-describedby="emailHelp"
                                                 placeholder="Enter Email Address..." name="emailaddress" required>
                                         </div>
-                                        <button class="btn btn-primary btn-user btn-block">Reset Password</button>
+                                        <button class="btn btn-primary btn-user btn-block">Send</button>
                                     </form>
                                 </div>
                             </div>

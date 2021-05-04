@@ -10,7 +10,7 @@ class AccountModel extends Model
 
     protected $primarykey = 'id';
 
-    protected $allowedFields = ['emailaddress', 'username', 'password', 'contactnumber'];
+    protected $allowedFields = ['emailaddress', 'username', 'password', 'contactnumber', 'status'];
 
     protected $validationRules = [
         'username'  => 'required', 
@@ -35,7 +35,7 @@ class AccountModel extends Model
         $builder = $db->table('accounts');
         if(strlen($password))
         {
-            $builder->select('id, emailaddress, username, password');
+            $builder->select('id, emailaddress, username, password, status');
             $builder->where('emailaddress', $emailaddress);
             $builder->where('password', $password);
         }
@@ -93,5 +93,29 @@ class AccountModel extends Model
 
         $builder->where('id', $account);
         $builder->update($data);
+    }
+
+    
+    public function getPasswordUsingEmail($emailaddress)
+    {
+        $db = \Config\Database::connect();
+        $builder = $db->table('accounts');
+
+        $builder->select('password');
+        $builder->where('emailaddress', $emailaddress);
+        $query = $builder->get(); 
+        return $query->getRow();
+    }
+    
+
+    public function verifyaccount($emailaddress, $code)
+    {
+        $db = \Config\Database::connect();
+        $builder = $db->table('verify');
+        
+        $builder->where('emailaddress', $emailaddress);
+        $builder->where('code', $code);
+        $query = $builder->get(); 
+        return $query->getRow();
     }
 }

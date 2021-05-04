@@ -63,9 +63,9 @@
                             </div>
                             <div class="col">
                                 <div class="progress progress-sm mr-2">
-                                    <div class="progress-bar bg-info" role="progressbar"
-                                        style="width: <?= $employeedata['percentcompleted']?>%" aria-valuenow="<?= $employeedata['percentcompleted']?>" aria-valuemin="0"
-                                        aria-valuemax="100"></div>
+                                    <div class="progress-bar bg-info" role="progressbar" style="width: <?= $employeedata['percentcompleted']?>%" aria-valuenow="<?= $employeedata['percentcompleted']?>" aria-valuemin="0"
+                                    aria-valuemax="100">                                
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -123,11 +123,14 @@
                     </div>
                 </div>
             </div>
-            
             <!-- Card Body -->
             <div class="card-body">
                 <div class="chart-area">
-                    <canvas id="myAreaChart"></canvas>
+                    <canvas id="EmployeeAreaChart"></canvas>
+                    <?php foreach($employeehistory as $field): ?>
+                    <input type="text" id="myInput<?= $field->month ?>" value="<?= $field->monthlyearnings ?>" hidden>
+                    <?php endforeach ?>
+                
                 </div>
             </div>
         </div>
@@ -139,7 +142,7 @@
             <!-- Card Header - Dropdown -->
             <div
                 class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Source of Earnings</h6>
                 <div class="dropdown no-arrow">
                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -162,13 +165,20 @@
                 </div>
                 <div class="mt-4 text-center small">
                     <span class="mr-2">
+                    <input type="text" id="percentHaircut" value="<?= $employeedata['percentHaircut'] ?>" hidden>
                         <i class="fas fa-circle text-primary"></i> Haircut
                     </span>
                     <span class="mr-2">
+                        <input type="text" id="percentManicure" value="<?= $employeedata['percentManicure'] ?>" hidden>
                         <i class="fas fa-circle text-success"></i> Manicure
                     </span>
                     <span class="mr-2">
+                        <input type="text" id="percentPedicure" value="<?= $employeedata['percentPedicure']?>" hidden>
                         <i class="fas fa-circle text-info"></i> Pedicure
+                    </span>
+                    <span class="mr-2">
+                        <input type="text" id="percentMassage" value="<?= $employeedata['percentMassage']?>" hidden>  
+                        <i class="fas fa-circle text-warning"></i> Massage
                     </span>
                 </div>
             </div>
@@ -233,7 +243,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
+                        <span>Bruskee's Salon and Barbershop 2021. All Rights Reserved</span>
                     </div>
                 </div>
             </footer>
