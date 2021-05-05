@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\StatisticsModel;
 use App\Models\EmployeeModel;
 use App\Models\AppointmentModel;
 use App\Models\AccountModel;
@@ -19,14 +20,119 @@ class Admin extends Controller
 
     public function dashboard()
     {   
-        $session = \Config\Services::session();
+        //$session = \Config\Services::session();
 
-        $accountid = $session->get('username');
+        //$accountid = $session->get('username');
+
+        //$employeeModel = new EmployeeModel();
+        
+        //$appoinmentModel = new AppointmentModel();
+
+        $statisticsModel = new StatisticsModel();
+
+        $result = $statisticsModel->getTotalEarnings();
+
+        $result2 = $statisticsModel->getTotalAppointments("");
+
+        $status = "PENDING";
+        $result3 = $statisticsModel->getTotalAppointments($status);
+
+        $status = "COMPLETE";
+        $result4 = $statisticsModel->getTotalAppointments($status);
+
+        $status = "CANCELLED";
+        $result7 = $statisticsModel->getTotalAppointments($status);
+
+        $percentCompleted = 0;
+        if($result4->id > 0)
+        {
+            $percentCompleted = ($result4->id / $result2->id) * 100;
+        }
+
+        $percentCompleted = number_format($percentCompleted, 2);
+
+        $percentPending = 0;
+        if($result3->id > 0)
+        {
+            $percentPending = ($result3->id / $result2->id) * 100;
+        }
+
+        $percentPending = number_format($percentPending, 2);
+
+        $percentCancelled= 0;
+        if($result7->id > 0)
+        {
+            $percentCancelled = ($result7->id / $result2->id) * 100;
+        }
+
+        $percentCancelled = number_format($percentCancelled, 2);
+
+        $status = "COMPLETE";
+        $result5 = $statisticsModel->getTotalEarningsPerMonth($status);
+        
+        $status = "COMPLETE";
+        $result6 = $statisticsModel->getRevenueSource($status);
+
+        $percentHaircut = "";
+        $percentManicure = "";
+        $percentPedicure = "";
+        $percentMassage = "";
+        
+        foreach($result6 as $res)
+        {
+            if($result2->id > 0)
+            {
+                if(!strcmp(strtoupper($res->sourcename), "HAIRCUT"))
+                {
+                    $percentHaircut = ($res->sourcecount / $result4->id) * 100;
+                }
+                else if(!strcmp(strtoupper($res->sourcename), "MANICURE"))
+                {
+                    $percentManicure = ($res->sourcecount / $result4->id) * 100;
+                }
+                else if(!strcmp(strtoupper($res->sourcename), "PEDICURE"))
+                {
+                    $percentPedicure = ($res->sourcecount / $result4->id) * 100;
+                }
+                else if(!strcmp(strtoupper($res->sourcename), "MASSAGE"))
+                {
+                    $percentMassage = ($res->sourcecount / $result4->id) * 100;
+                }
+            }
+        }
+
+        $totalNetEarnings = $result->servicecost * .70; // 30 percent cut for employees
+
+        //var_dump($result);
+        //echo "<br>";
+        //var_dump($result2);
+       // echo "<br>";
+       // var_dump($result3);
+        //echo "<br>";
+        //var_dump($result4);
+
+        //echo "<br>";
+        //var_dump($result5);
+
+        $dashboardStatistics = [
+            'totalGrossEarnings' => $result->servicecost,
+            'totalNetEarnings' => $totalNetEarnings,
+            'totalAppointments' => $result2->id,
+            'totalCompletedAppointments' => $result4->id,
+            'totalPendingAppointments' => $result3->id,
+            'percentCompleted' => $percentCompleted,
+            'percentPending' => $percentPending,
+            'percentCancelled' => $percentCancelled,
+            'percentHaircut' => $percentHaircut,
+            'percentManicure' => $percentManicure,
+            'percentPedicure' => $percentPedicure,
+            'percentMassage' => $percentMassage,
+        ];
+
+        //var_dump($dashboardStatistics);
 
         echo view('templates/admin/header');
-        echo view('admin/dashboard');
-        echo view('templates/admin/footer');
-        
+        return view('admin/dashboard', ['statistics' => $dashboardStatistics, 'earningspermonth' => $result5]);
     }
 
     public function manageallappointments()
@@ -176,6 +282,10 @@ class Admin extends Controller
         $status = "COMPLETE";
         $result5 = $appoinmentModel->countAppointment($employeeid, $status);
 
+        // get the total number of completed appointments.
+        $status = "CANCELLED";
+        $result8 = $appoinmentModel->countAppointment($employeeid, $status);
+
         $status = "COMPLETE";
         $result6 = $employeeModel->getMonthlyTotalEmployeeEarnings($employeeid, $status);
 
@@ -187,7 +297,24 @@ class Admin extends Controller
 
         $percentCompleted = number_format($percentCompleted, 2);
 
-        $totalearnings = $result2->servicecost * .30; // 70 percent cut for employees
+        $percentPending = 0;
+        if($result4->id > 0)
+        {
+            $percentPending = ($result3->id / $result4->id) * 100;
+        }
+
+        $percentPending = number_format($percentPending, 2);
+
+        $percentCancelled = 0;
+
+        if($result4->id > 0)
+        {
+            $percentCancelled = ($result8->id / $result4->id) * 100;
+        }
+
+        $percentCancelled = number_format($percentCancelled, 2);     
+
+        $totalearnings = $result2->servicecost * .30; // 30 percent cut for employees
 
 
         $status = "COMPLETE";
@@ -226,7 +353,10 @@ class Admin extends Controller
             'totalearnings' => $totalearnings,
             'totalpendingappointments' => $result3->id,
             'totalappointmentsassigned' => $result4->id,
+            'totalappointmentscompleted' => $result5->id,
             'percentcompleted' => $percentCompleted,
+            'percentpending' => $percentPending,
+            'percentCancelled' => $percentCancelled,
             'percentHaircut' => $percentHaircut,
             'percentManicure' => $percentManicure,
             'percentPedicure' => $percentPedicure,

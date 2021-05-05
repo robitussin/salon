@@ -6,34 +6,61 @@ use CodeIgniter\Model;
 
 class StatisticsModel extends Model
 {
-
-    public function getTotalMonthlyEarnings()
+    public function getTotalEarnings()
     {
-        /*
-        $this->db->select('*');
-        $this->db->from('blogs');
-        $this->db->join('comments', 'comments.id = blogs.id');
-        $query = $this->db->get();
-        
-        // Produces:
-        // SELECT * FROM blogs JOIN comments ON comments.id = blogs.id
-        */
-/*
-        $this->db->select('SUM(servicecost)');
-        $this->db->from('services');
-        $this->db->join('appointment', 'appointment.servicename = services.servicename');
-        //$this->db->where('appointment.datetime', $name);
-        $this->db->where('appointment.datetime >=', minvalue);
-        $this->db->where('appointment.datetime <=', maxvalue);
-        $this->db->where('appointment.status <=', 'COMPLETE');
-        $query = $this->db->getRow();
-*/
-        // Produces:
-        // SELECT * FROM blogs JOIN comments ON comments.id = blogs.id
+        $db = \Config\Database::connect();
+        $builder = $db->table('appointment');
+
+        $builder->selectSum('services.servicecost');
+        $builder->join('services', 'services.id = appointment.serviceid');
+        $builder->where('appointment.status', 'COMPLETE');
+        $query = $builder->get();
+        return $query->getRow();   
     }
 
-    public function getTotalYearlyEarnings()
+    public function getTotalAppointments($status)
     {
-        //
+        $db = \Config\Database::connect();
+        $builder = $db->table('appointment');
+
+        $builder->selectCount('id');
+
+        if(strlen($status))
+        {
+            $builder->where('status', $status);
+        }
+
+        $query = $builder->get();
+        return $query->getRow();
+    }
+
+    public function getTotalEarningsPerMonth($status)
+    {
+        $db = \Config\Database::connect();
+        $builder = $db->table('appointment');
+
+        $builder->select('SUM(services.servicecost) as monthlyearnings, MONTHNAME(datetime) as month');
+        $builder->join('services', 'services.id = appointment.serviceid');
+        $builder->where('appointment.status', $status);
+        $builder->where('appointment.datetime >=', '2021-01-01 00:00:00');
+        $builder->where('appointment.datetime <=', '2021-12-31 11:59:59');
+        $builder->groupBy('MONTHNAME(datetime)');
+        $builder->orderBy('MONTHNAME(datetime)', 'DESC');
+        $query = $builder->get();
+    
+        return $query->getResult();   
+    }
+
+    public function getRevenueSource($status)
+    {
+        $db = \Config\Database::connect();
+        $builder = $db->table('appointment');
+
+        $builder->select('COUNT(services.servicename) as sourcecount, appointment.servicename as sourcename');
+        $builder->join('services', 'services.id = appointment.serviceid');
+        $builder->where('appointment.status', $status);
+        $builder->groupBy('appointment.servicename');
+        $query = $builder->get();
+        return $query->getResult();   
     }
 }
