@@ -20,14 +20,6 @@ class Admin extends Controller
 
     public function dashboard()
     {   
-        //$session = \Config\Services::session();
-
-        //$accountid = $session->get('username');
-
-        //$employeeModel = new EmployeeModel();
-        
-        //$appoinmentModel = new AppointmentModel();
-
         $statisticsModel = new StatisticsModel();
 
         $result = $statisticsModel->getTotalEarnings();
@@ -103,17 +95,6 @@ class Admin extends Controller
 
         $totalNetEarnings = $result->servicecost * .70; // 30 percent cut for employees
 
-        //var_dump($result);
-        //echo "<br>";
-        //var_dump($result2);
-       // echo "<br>";
-       // var_dump($result3);
-        //echo "<br>";
-        //var_dump($result4);
-
-        //echo "<br>";
-        //var_dump($result5);
-
         $dashboardStatistics = [
             'totalGrossEarnings' => $result->servicecost,
             'totalNetEarnings' => $totalNetEarnings,
@@ -128,8 +109,6 @@ class Admin extends Controller
             'percentPedicure' => $percentPedicure,
             'percentMassage' => $percentMassage,
         ];
-
-        //var_dump($dashboardStatistics);
 
         echo view('templates/admin/header');
         return view('admin/dashboard', ['statistics' => $dashboardStatistics, 'earningspermonth' => $result5]);
