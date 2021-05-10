@@ -42,7 +42,7 @@
                                         <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                     </div>
 
-                                    <div class="text-center">      
+                                    <div class="text-center" id="formsubmitmessage">      
                                         <?php if (! empty($errors)) : ?>
                                             <div class="alert alert-danger">
                                                 <?php foreach ($errors as $field => $error) : ?>
@@ -50,7 +50,7 @@
                                                 <?php endforeach ?>
                                             </div>
                                         <?php elseif (! empty($info)) : ?>
-                                            <div class="alert alert-success">
+                                            <div class="alert alert-success" id="formsubmitmessage">
                                                 <?php foreach ($info as $field => $infomessage) : ?>
                                                 <p><?= $infomessage ?></p>
                                                 <?php endforeach ?>
@@ -79,7 +79,7 @@
                                     </form>
                                     <hr>
                                     <div class="text-center">
-                                        <a class="small" href="<?= base_url('account/resetpassword'); ?>">Forgot Password?</a>
+                                        <a class="small" href="<?= base_url('account/forgotpassword'); ?>">Forgot Password?</a>
                                     </div>
                                     <div class="text-center">
                                         <a class="small" href="<?= base_url('account/usersignup'); ?>">Create an Account!</a>
@@ -105,6 +105,8 @@
 
     <!-- Custom scripts for all pages-->
     <script src="<?= base_url('assets/adminassets/js/sb-admin-2.min.js'); ?>"></script>
+    <!-- Page level custom scripts -->
+    <script src="<?= base_url('assets/adminassets/js/formsubmit.js'); ?>"></script>
 
 </body>
 

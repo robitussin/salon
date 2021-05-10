@@ -86,7 +86,7 @@ class AccountModel extends Model
     {
         $db = \Config\Database::connect();
         $builder = $db->table('accounts');
-;
+
         $data = [
             'status' => $status,
         ];

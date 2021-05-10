@@ -199,7 +199,7 @@
                     <div class="progress-bar bg-warning" role="progressbar" style="width: <?= $employeedata['percentpending']?>%"
                         aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
-                <h4 class="small font-weight-bold">Percent Cancelled<span
+                <h4 class="small font-weight-bold">Percent Completed<span
                         class="float-right"><?= $employeedata['percentcompleted']?>%</span></h4>
                 <div class="progress">
                     <div class="progress-bar bg-success" role="progressbar" style="width: <?= $employeedata['percentcompleted']?>%"

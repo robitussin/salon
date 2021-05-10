@@ -37,12 +37,12 @@
                                 <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
                             </div>
 
-                            <div class="text-center">      
+                            <div class="text-center" id="formsubmitmessage">      
                                 <?php if (! empty($errors)) : ?>
-                                <div class="alert alert-danger">
-                                <?php foreach ($errors as $field => $error) : ?>
-                                <p><?= $error ?></p>
-                                <?php endforeach ?>
+                                    <div class="alert alert-danger">
+                                    <?php foreach ($errors as $field => $error) : ?>
+                                        <p><?= $error ?></p>
+                                    <?php endforeach ?>
                                 </div>
                                 <?php endif ?>
                             </div>
@@ -77,7 +77,7 @@
                             </form>
                             <hr>
                             <div class="text-center">
-                            <a class="small" href="<?= base_url('account/resetpassword'); ?>">Forgot Password?</a>
+                            <a class="small" href="<?= base_url('account/forgotpassword'); ?>">Forgot Password?</a>
                             </div>
                             <div class="text-center">
                                 <a class="small" href="<?= base_url('account/userlogin'); ?>">Already have an account? Login!</a>

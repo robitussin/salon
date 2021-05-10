@@ -22,7 +22,7 @@
                     <label>Change Status:</label> 
                     <select form ="submitform" name="appointmentstatus">
                         <option selected disabled>Select Status</option>
-                        <option name= value="PENDING">PENDING</option>
+                        <option value="PENDING">PENDING</option>
                         <option value="CANCELLED">CANCELLED</option>
                         <option value="COMPLETE">COMPLETE</option>
                     </select>

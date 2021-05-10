@@ -87,11 +87,8 @@ class Account extends Controller
                         return view('signup/createaccount', ['errors' => $data]);   
                     }
                 }
-                //$model->save($data);
-                //echo view('signup/success');
+
                 echo view('signup/verifyaccount');
-
-
             }
         }
         else
@@ -135,13 +132,98 @@ class Account extends Controller
 
                     if(!strcmp($session->get('username'), "admin"))
                     {
-                        //$model = new StatisticsModel();
+                        $statisticsModel = new StatisticsModel();
 
-                        //$result = $model->getTotalMonthlyEarnings();
-
+                        $result = $statisticsModel->getTotalEarnings();
+                
+                        $result2 = $statisticsModel->getTotalAppointments("");
+                
+                        $status = "PENDING";
+                        $result3 = $statisticsModel->getTotalAppointments($status);
+                
+                        $status = "COMPLETE";
+                        $result4 = $statisticsModel->getTotalAppointments($status);
+                
+                        $status = "CANCELLED";
+                        $result7 = $statisticsModel->getTotalAppointments($status);
+                
+                        $percentCompleted = 0;
+                        if($result4->id > 0)
+                        {
+                            $percentCompleted = ($result4->id / $result2->id) * 100;
+                        }
+                
+                        $percentCompleted = number_format($percentCompleted, 2);
+                
+                        $percentPending = 0;
+                        if($result3->id > 0)
+                        {
+                            $percentPending = ($result3->id / $result2->id) * 100;
+                        }
+                
+                        $percentPending = number_format($percentPending, 2);
+                
+                        $percentCancelled= 0;
+                        if($result7->id > 0)
+                        {
+                            $percentCancelled = ($result7->id / $result2->id) * 100;
+                        }
+                
+                        $percentCancelled = number_format($percentCancelled, 2);
+                
+                        $status = "COMPLETE";
+                        $result5 = $statisticsModel->getTotalEarningsPerMonth($status);
+                        
+                        $status = "COMPLETE";
+                        $result6 = $statisticsModel->getRevenueSource($status);
+                
+                        $percentHaircut = "";
+                        $percentManicure = "";
+                        $percentPedicure = "";
+                        $percentMassage = "";
+                        
+                        foreach($result6 as $res)
+                        {
+                            if($result2->id > 0)
+                            {
+                                if(!strcmp(strtoupper($res->sourcename), "HAIRCUT"))
+                                {
+                                    $percentHaircut = ($res->sourcecount / $result4->id) * 100;
+                                }
+                                else if(!strcmp(strtoupper($res->sourcename), "MANICURE"))
+                                {
+                                    $percentManicure = ($res->sourcecount / $result4->id) * 100;
+                                }
+                                else if(!strcmp(strtoupper($res->sourcename), "PEDICURE"))
+                                {
+                                    $percentPedicure = ($res->sourcecount / $result4->id) * 100;
+                                }
+                                else if(!strcmp(strtoupper($res->sourcename), "MASSAGE"))
+                                {
+                                    $percentMassage = ($res->sourcecount / $result4->id) * 100;
+                                }
+                            }
+                        }
+                
+                        $totalNetEarnings = $result->servicecost * .70; // 30 percent cut for employees
+                
+                        $dashboardStatistics = [
+                            'totalGrossEarnings' => $result->servicecost,
+                            'totalNetEarnings' => $totalNetEarnings,
+                            'totalAppointments' => $result2->id,
+                            'totalCompletedAppointments' => $result4->id,
+                            'totalPendingAppointments' => $result3->id,
+                            'percentCompleted' => $percentCompleted,
+                            'percentPending' => $percentPending,
+                            'percentCancelled' => $percentCancelled,
+                            'percentHaircut' => $percentHaircut,
+                            'percentManicure' => $percentManicure,
+                            'percentPedicure' => $percentPedicure,
+                            'percentMassage' => $percentMassage,
+                        ];
+                
                         echo view('templates/admin/header');
-                        echo view('admin/dashboard');
-                        echo view('templates/admin/footer');
+                        return view('admin/dashboard', ['statistics' => $dashboardStatistics, 'earningspermonth' => $result5]);
                     }
                     else
                     {
@@ -181,7 +263,7 @@ class Account extends Controller
     }
 
 
-    public function resetpassword()
+    public function forgotpassword()
     {
         if ($this->request->getMethod() === 'post' && $this->validate([
             'emailaddress' => 'required',
@@ -204,7 +286,7 @@ class Account extends Controller
 
                 $result = $accountModel->getPasswordUsingEmail($emailaddress);
 
-                $email->setSubject('Reset Password');
+                $email->setSubject('Forgot Password');
                 $email->setMessage('Here is your password: '. $result->password . '<br>'. 'Please login again using your new password '. base_url());
 
                 if($email->send())
@@ -214,7 +296,8 @@ class Account extends Controller
                 }
                 else
                 {
-                    $data = $email->printDebugger(['header']);
+                    $data = ["Unable to send email"];
+               
                     return view('login/loginaccount', ['errors' => $data]);   
                 }
             }
@@ -298,6 +381,42 @@ class Account extends Controller
 
         echo view('signup/verifyaccount');
     }
-}
 
+
+    public function changepassword()
+    {
+        $accountModel = new AccountModel();
+
+        if ($this->request->getMethod() === 'post' && $this->validate([
+            'password'  => 'required',
+            'passwordconfirm' => 'required',
+        ]))
+        {
+            $session = \Config\Services::session();
+            $accountid = $session->get('accountid');
+
+            $data = [
+                'password'  => $this->request->getPost('password'),
+                'passwordconfirm'  => $this->request->getPost('passwordconfirm'),
+            ];
+            
+            if($accountModel->update($accountid, $data) == true)
+            {
+                echo view('templates/user/header');
+                $message = ["Password has been updated"];
+                return view('user/changepassword', ['message' =>  $message]);
+            }
+            else
+            {
+                echo view('templates/user/header');
+                return view('user/changepassword', ['message' => $accountModel->errors()]);
+            }
+        }
+        else
+        {
+            echo view('templates/user/header');
+            echo view('user/changepassword');
+        }
+    }
+}
 ?>

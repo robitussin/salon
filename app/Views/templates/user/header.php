@@ -79,7 +79,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Options:</h6>
                         <a class="collapse-item" href="<?= base_url('account/viewaccount/'. $session->get('accountid')); ?>">View</a>
-                        <a class="collapse-item" href="utilities-animation.html">Change Password</a>
+                        <a class="collapse-item" href="<?= base_url('account/changepassword/'. $session->get('accountid')); ?>">Change Password</a>
                     </div>
                 </div>
             </li>

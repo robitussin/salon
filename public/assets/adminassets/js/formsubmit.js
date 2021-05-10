@@ -4,5 +4,9 @@
        //alert('submitting');
        $('#submitform').submit();
    });
-  })(jQuery); // End of use strict
-  
+
+   $("#formsubmitmessage").show();
+   setTimeout(function() { $("#formsubmitmessage").fadeOut('fast'); }, 2500);
+
+})(jQuery); // End of use strict
+

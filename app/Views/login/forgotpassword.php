@@ -44,17 +44,17 @@
                                             and we'll send your password to you!</p>
                                     </div>
 
-                                    <div class="text-center">      
+                                    <div class="text-center" id="formsubmitmessage">      
                                         <?php if (! empty($errors)) : ?>
-                                        <div class="alert alert-danger">
-                                        <?php foreach ($errors as $field => $error) : ?>
-                                        <p><?= $error ?></p>
-                                        <?php endforeach ?>
-                                        </div>
+                                            <div class="alert alert-danger">
+                                                <?php foreach ($errors as $field => $error) : ?>
+                                                    <p><?= $error ?></p>
+                                                <?php endforeach ?>
+                                            </div>
                                         <?php endif ?>
                                     </div>
 
-                                    <form class="user"  action="<?= base_url('account/resetpassword'); ?>" method="post">
+                                    <form class="user" action="<?= base_url('account/forgotpassword'); ?>" method="post">
                                         <div class="form-group">
                                             <input type="email" class="form-control form-control-user"
                                                 id="exampleInputEmail" aria-describedby="emailHelp"
@@ -83,6 +83,9 @@
 
     <!-- Custom scripts for all pages-->
     <script src="<?= base_url('assets/adminassets/js/sb-admin-2.min.js');?>"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="<?= base_url('assets/adminassets/js/formsubmit.js'); ?>"></script>
 
 </body>
 
