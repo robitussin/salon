@@ -19,6 +19,7 @@
                                             <th>Employee ID</th>
                                             <th>Employee Name</th>
                                             <th>Position</th>
+                                            <th>Status</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -26,6 +27,7 @@
                                             <th>Employee ID</th>
                                             <th>Employee Name</th>
                                             <th>Position</th>
+                                            <th>Status</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -33,9 +35,11 @@
                                         <?php foreach($employeelist as $field): ?>
                                                 <tr>
                                                     <?php if(! $field->id == 0): ?>
-                                                    <td><a href="<?= base_url('admin/viewemployeedashboard/'.$field->id); ?>"><?= $field->id ?></a></td>
-                                                    <td><?= $field->name ?></td>
-                                                    <td><?= $field->position ?></td>
+                                                        <td><a href="<?= base_url('admin/viewemployeedashboard/'.$field->id); ?>"><?= $field->id ?></a></td>
+                                                        <td><?= $field->name ?></td>
+                                                        <td><?= $field->position ?></td>                                    
+                                                        <td><?= $field->status ?></td>
+
                                                     <?php endif ?>
                                                 </tr>
                                         <?php endforeach ?>
@@ -55,7 +59,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2021</span>
+                        <span>&copy; Brusko Barbershop 2021. All Rights Reserved.</span>
                     </div>
                 </div>
             </footer>
@@ -91,6 +95,7 @@
             </div>
         </div>
     </div>
+
 
     <!-- Bootstrap core JavaScript-->
     <script src="<?= base_url('assets/adminassets/vendor/jquery/jquery.min.js'); ?>"></script>

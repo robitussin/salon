@@ -8,16 +8,17 @@ var haircutValue = $("#percentHaircut").val();
 var manicureValue = $("#percentManicure").val();
 var pedicureValue = $("#percentPedicure").val();
 var massageValue = $("#percentMassage").val();
+var homeServiceHaircutValue = $("#percentHomeServiceHaircut").val();
 
 var myPieChart = new Chart(ctx, {
   type: 'doughnut',
   data: {
     //labels: ["Direct", "Referral", "Social"],
-    labels: ["Haircut", "Manicure", "Pedicure", "Massage"],
+    labels: ["Haircut", "Manicure", "Pedicure", "Massage", "HomeServiceHaircut"],
     datasets: [{
-      data: [haircutValue, manicureValue, pedicureValue, massageValue],
-      backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc', '#e8bd48'],
-      hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf', '#ba9a43'],
+      data: [haircutValue, manicureValue, pedicureValue, massageValue, homeServiceHaircutValue],
+      backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc', '#e8bd48', '#ff0000'],
+      hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf', '#ba9a43', '#cc0000'],
       hoverBorderColor: "rgba(234, 236, 244, 1)",
     }],
   },

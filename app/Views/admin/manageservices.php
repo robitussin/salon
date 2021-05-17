@@ -4,46 +4,46 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Appointment History</h1>
-                    <p class="mb-4">Click on the appointment id to cancel pending appointments</p>
+                    <h1 class="h3 mb-2 text-gray-800">Service History</h1>
+                    <p class="mb-4">Click on the service id</p>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Appointment List</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Service List</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Appointment ID</th>
-                                            <th>User Account ID</th>
+                                            <th>Service ID</th>
                                             <th>Service Name</th>
-                                            <th>Date Time</th>
-                                            <th>Employee Assigned</th>
+                                            <th>Service Cost</th>
+                                            <th>Description</th>
+                                            <th>Image Name</th>
                                             <th>Status</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>Appointment ID</th>
-                                            <th>User Account ID</th>
+                                            <th>Service ID</th>
                                             <th>Service Name</th>
-                                            <th>Date Time</th>
-                                            <th>Employee Assigned</th>
+                                            <th>Service Cost</th>
+                                            <th>Description</th>
+                                            <th>Image Name</th>
                                             <th>Status</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                    <?php if(! empty($appointmentlist)): ?>
-                                        <?php foreach($appointmentlist as $field): ?>
+                                    <?php if(! empty($servicelist)): ?>
+                                        <?php foreach($servicelist as $field): ?>
                                                 <tr>
-                                                    <td><a href="<?= base_url('admin/viewappointment/'.$field->id); ?>"><?= $field->id ?></a></td>
-                                                    <td><?= $field->accountid ?></td>
+                                                    <td><a href="<?= base_url('admin/viewService/'.$field->id); ?>"><?= $field->id ?></a></td>
                                                     <td><?= $field->servicename ?></td>
-                                                    <td><?= $field->datetime ?></td>
-                                                    <td><?= $field->employeeid ?></td>
+                                                    <td><?= $field->servicecost ?></td>
+                                                    <td><?= $field->description ?></td>
+                                                    <td><?= $field->imagename ?></td>
                                                     <td><?= $field->status ?></td>
                                                 </tr>
                                         <?php endforeach ?>
@@ -109,13 +109,6 @@
 
     <!-- Custom scripts for all pages-->
     <script src="<?= base_url('assets/adminassets/js/sb-admin-2.min.js'); ?>"></script>
-
-    <!-- Page level plugins -->
-    <script src="<?= base_url('assets/adminassets/vendor/chart.js/Chart.min.js'); ?>"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="<?= base_url('assets/adminassets/js/demo/chart-area-demo.js'); ?>"></script>
-    <script src="<?= base_url('assets/adminassets/js/demo/chart-pie-demo.js'); ?>"></script>
 
     <!-- Page level plugins -->
     <script src="<?= base_url('assets/adminassets/vendor/datatables/jquery.dataTables.min.js'); ?>"></script>

@@ -181,7 +181,8 @@ class Account extends Controller
                         $percentManicure = "";
                         $percentPedicure = "";
                         $percentMassage = "";
-                        
+                        $percentHomeServiceHaircut = "";
+
                         foreach($result6 as $res)
                         {
                             if($result2->id > 0)
@@ -202,10 +203,14 @@ class Account extends Controller
                                 {
                                     $percentMassage = ($res->sourcecount / $result4->id) * 100;
                                 }
+                                else if(!strcmp(strtoupper($res->sourcename), "HOMESERVICEHAIRCUT"))
+                                {
+                                    $percentHomeServiceHaircut = ($res->sourcecount / $result4->id) * 100;
+                                }
                             }
                         }
                 
-                        $totalNetEarnings = $result->servicecost * .70; // 30 percent cut for employees
+                        $totalNetEarnings = $result->servicecost * .60; // 40 percent cut for employees
                 
                         $dashboardStatistics = [
                             'totalGrossEarnings' => $result->servicecost,
@@ -220,6 +225,7 @@ class Account extends Controller
                             'percentManicure' => $percentManicure,
                             'percentPedicure' => $percentPedicure,
                             'percentMassage' => $percentMassage,
+                            'percentHomeServiceHaircut' => $percentHomeServiceHaircut,
                         ];
                 
                         echo view('templates/admin/header');

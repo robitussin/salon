@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Bruskee's Salon and Barbershop</title>
+  <title>Brusko Barbershop</title>
 
   <!-- Bootstrap core CSS -->
   <link href="<?= base_url('assets/vendor/bootstrap/css/bootstrap.min.css'); ?>" rel="stylesheet">
@@ -27,6 +27,9 @@
   <!-- Custom styles for this template -->
   <link href="<?= base_url('assets/css/new-age.min.css'); ?>" rel="stylesheet">
 
+  <style>
+
+    </style>
 </head>
 
 <body id="page-top">
@@ -65,7 +68,7 @@
           <div class="header-content mx-auto">
             <!--<h1 class="mb-5">New Age is an app landing page that will help you beautifully showcase your new mobile app, or anything else!</h1>-->
             <h1>
-              <b>Bruskee's Salon and Barbershop</b>
+              <b>Brusko Barbershop</b>
             </h1>
             <h3>
               the place where you will get all your personal grooming needs!           
@@ -176,22 +179,25 @@
       <div class="container">
           <h2>Contact Us</h2>
           <h3 style="color:#ffffff">
-            <i class="fas fa-phone-square"></i>
-            9909355
-          </h3>
-          <h3 style="color:#ffffff">
             <i class="fas fa-mobile-alt"></i>
-            09273983732
+            09475787567
           </h3>
           <h3 style="color:#ffffff">
             <i class="fas fa-map-marker-alt"></i>
-            Block 26 Lot 10 North Olympus Subdvision Olympus Road Brgy. Kaligayahan Quezon City Philippines
+            0033 L(A) Olympus Street North Olympus Subdvision Brgy. Kaligayahan Quezon City Philippines
           </h3  >
           <a href="#contact" class="btn btn-outline btn-xl js-scroll-trigger">Let's Get Started!</a>
       </div>
     </div>
     <div class="overlay"></div>
   </section>
+
+  <!-- Map-->
+  <div class="map" id="contact">
+  <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d482.3148891223083!2d121.0426712873721!3d14.739758723518147!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x1c5a100f2bf3321b!2sBrusko%20Barbershop!5e0!3m2!1sen!2sph!4v1621062932869!5m2!1sen!2sph"></iframe>
+      <br />
+      <small><a href="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d482.3148891223083!2d121.0426712873721!3d14.739758723518147!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x1c5a100f2bf3321b!2sBrusko%20Barbershop!5e0!3m2!1sen!2sph!4v1621062932869!5m2!1sen!2sph"></a></small>
+  </div>
 
   <section class="contact bg-primary" id="contact">
     <div class="container">
@@ -220,7 +226,7 @@
 
   <footer>
     <div class="container">
-      <p>&copy; Bruskee's Salon and Barbershop 2021. All Rights Reserved.</p>
+      <p>&copy; Brusko Barbershop 2021. All Rights Reserved.</p>
       <ul class="list-inline">
         <li class="list-inline-item">
           <a href="#">Privacy</a>
@@ -244,6 +250,9 @@
 
   <!-- Custom scripts for this template -->
   <script src="<?= base_url('assets/js/new-age.min.js'); ?>"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="<?= base_url('assets/js/new-age.js'); ?>"></script>
 
 </body>
 

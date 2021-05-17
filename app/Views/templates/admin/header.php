@@ -82,7 +82,7 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAccounts"
                     aria-expanded="true" aria-controls="collapseAccounts">
-                    <i class="fas fa-fw fa-cog"></i>
+                    <i class="fas fa-fw fa-user-cog"></i>
                     <span>Account</span>
                 </a>
                 <div id="collapseAccounts" class="collapse" aria-labelledby="headingUtilities"
@@ -94,11 +94,11 @@
                 </div>
             </li>
 
-                        <!-- Nav Item - Utilities Collapse Menu -->
+            <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEmployee"
                     aria-expanded="true" aria-controls="collapseEmployee">
-                    <i class="fas fa-fw fa-cog"></i>
+                    <i class="fas fa-fw fa-user"></i>
                     <span>Employee</span>
                 </a>
                 <div id="collapseEmployee" class="collapse" aria-labelledby="headingUtilities"
@@ -106,9 +106,27 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Options:</h6>
                         <a class="collapse-item"  href="<?= base_url('admin/manageallemployees'); ?>">Manage</a>
+                        <a class="collapse-item"  href="<?= base_url('admin/addemployee'); ?>">Add</a>
                     </div>
                 </div>
             </li>
+
+             <!-- Nav Item - Utilities Collapse Menu -->
+             <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseServices"
+                    aria-expanded="true" aria-controls="collapseServices">
+                    <i class="fas fa-fw fa-concierge-bell"></i>
+                    <span>Services</span>
+                </a>
+                <div id="collapseServices" class="collapse" aria-labelledby="headingUtilities"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Options:</h6>
+                        <a class="collapse-item"  href="<?= base_url('admin/manageServices'); ?>">Manage</a>
+                        <a class="collapse-item"  href="<?= base_url('admin/addService'); ?>">Add</a>
+                    </div>
+                </div>
+            </li>           
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">

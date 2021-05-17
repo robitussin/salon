@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\ServiceModel;
 use App\Models\StatisticsModel;
 use App\Models\EmployeeModel;
 use App\Models\AppointmentModel;
@@ -69,6 +70,7 @@ class Admin extends Controller
         $percentManicure = "";
         $percentPedicure = "";
         $percentMassage = "";
+        $percentHomeServiceHaircut = "";
         
         foreach($result6 as $res)
         {
@@ -90,10 +92,14 @@ class Admin extends Controller
                 {
                     $percentMassage = ($res->sourcecount / $result4->id) * 100;
                 }
+                else if(!strcmp(strtoupper($res->sourcename), "HOMESERVICEHAIRCUT"))
+                {
+                    $percentHomeServiceHaircut = ($res->sourcecount / $result4->id) * 100;
+                }
             }
         }
 
-        $totalNetEarnings = $result->servicecost * .70; // 30 percent cut for employees
+        $totalNetEarnings = $result->servicecost * .60; // 60 percent cut for brusko
 
         $dashboardStatistics = [
             'totalGrossEarnings' => $result->servicecost,
@@ -108,6 +114,7 @@ class Admin extends Controller
             'percentManicure' => $percentManicure,
             'percentPedicure' => $percentPedicure,
             'percentMassage' => $percentMassage,
+            'percentHomeServiceHaircut' => $percentHomeServiceHaircut,
         ];
 
         echo view('templates/admin/header');
@@ -182,7 +189,6 @@ class Admin extends Controller
             
             if(isset($userinfoupdate))// if Save changes button was pressed. Go here.
             {
-                echo "a";
                 $username =  $this->request->getPost('username');
                 $contactnumber = $this->request->getPost('contactnumber');
 
@@ -192,13 +198,10 @@ class Admin extends Controller
             }
             else // if Activate/Deactivate button was pressed. Go here.
             {
-                echo "b";
                 $activate = $this->request->getPost('activateaccountbutton');
                 $deactivate = $this->request->getPost('deactivateaccountbutton');
                 $status = null;
 
-                echo $activate;
-                echo $deactivate;
                 if(isset($activate))
                 {
                     $status = "ACTIVE";
@@ -293,7 +296,7 @@ class Admin extends Controller
 
         $percentCancelled = number_format($percentCancelled, 2);     
 
-        $totalearnings = $result2->servicecost * .30; // 30 percent cut for employees
+        $totalearnings = $result2->servicecost * .40; // 40 percent cut for employees
 
 
         $status = "COMPLETE";
@@ -303,7 +306,8 @@ class Admin extends Controller
         $percentManicure = "";
         $percentPedicure = "";
         $percentMassage = "";
-        
+        $percentHomeServiceHaircut = "";
+
         foreach($result7 as $res)
         {
             if($result5->id > 0)
@@ -324,11 +328,17 @@ class Admin extends Controller
                 {
                     $percentMassage = ($res->sourcecount / $result5->id) * 100;
                 }
+                else if(!strcmp(strtoupper($res->sourcename), "HOMESERVICEHAIRCUT"))
+                {
+                    $percentHomeServiceHaircut = ($res->sourcecount / $result5->id) * 100;
+                }
             }
         }
 
         $result = [
+            'id' => $result1->id,
             'name' => $result1->name,
+            'status' => $result1->status,
             'totalearnings' => $totalearnings,
             'totalpendingappointments' => $result3->id,
             'totalappointmentsassigned' => $result4->id,
@@ -340,10 +350,175 @@ class Admin extends Controller
             'percentManicure' => $percentManicure,
             'percentPedicure' => $percentPedicure,
             'percentMassage' => $percentMassage,
+            'percentHomeServiceHaircut' => $percentHomeServiceHaircut,
         ];
 
         echo view('templates/admin/header');
         return view('admin/employeedashboard', ['employeedata' => $result, 'employeehistory' => $result6]);
         
+    }
+
+    public function addemployee()
+    {
+        $employeeModel = new EmployeeModel();
+
+        if ($this->request->getMethod() === 'post' && $this->validate([
+            'employeename' => 'required',
+            'position' => 'required',
+        ]))
+        {
+            $data = [
+                'name' => $this->request->getPost('employeename'),
+                'position'  => $this->request->getPost('position'), 
+                'status' => 'ACTIVE',
+            ];
+
+            if($employeeModel->save($data) == true)
+            {
+                echo view('templates/admin/header');
+                $message = ["A new empoyee has been added"];
+                return view('admin/addemployee', ['message' =>  $message]);
+            }    
+            else
+            {
+                echo view('templates/admin/header');
+                return view('admin/addemployee', ['message' => $employeeModel->errors()]);
+            }     
+        }
+        else
+        {
+            echo view('templates/admin/header');
+            echo view('admin/addemployee');
+        }
+    }
+
+    public function changeEmployeeStatus($employeeID)
+    {
+        $employeeModel = new EmployeeModel();
+
+        if ($this->request->getMethod() === 'post')
+        {
+            $activate = $this->request->getPost('activateaccountbutton');
+            $deactivate = $this->request->getPost('deactivateaccountbutton');
+
+            $status = null;
+            
+            if(isset($activate))
+            {
+                $status = "ACTIVE";
+            }
+            else if(isset($deactivate))
+            {
+                $status = "INACTIVE";
+            }
+
+            if(isset($status))
+            {
+                if($employeeModel->updateEmployeeStatus($employeeID, $status) == true)
+                {
+                    echo $this->viewemployeedashboard($employeeID);
+                }
+            }  
+        }
+    }
+
+    public function manageServices()
+    {
+        $model = new ServiceModel();
+        $result = $model->getService("");
+
+        echo view('templates/admin/header');
+        return view('admin/manageservices', ['servicelist' => $result]);
+    }
+
+    public function addService()
+    {
+        $model = new ServiceModel();
+        
+        if ($this->request->getMethod() === 'post')
+        {
+            $data = [
+                'servicename' => $this->request->getPost('servicename'),
+                'imagename'  => $this->request->getPost('imagename'), 
+                'servicecost' => $this->request->getPost('servicecost'),
+                'homeservicecost'  => $this->request->getPost('homeservicecost'), 
+                'description'  => $this->request->getPost('servicedescription'), 
+                'status' => 'ACTIVE',
+            ];
+
+            if($model->save($data) == true)
+            {
+                echo view('templates/admin/header');
+                $message = ["A new service has been added"];
+                return view('admin/addservice', ['message' =>  $message]);
+            }    
+            else
+            {
+                echo view('templates/admin/header');
+                return view('admin/addservice', ['message' => $model->errors()]);
+            }     
+        }
+        else
+        {
+            echo view('templates/admin/header');
+            echo view('admin/addservice');
+        }
+    }
+
+    public function viewService($serviceID)
+    {
+        $serviceModel = new ServiceModel();
+        
+        $result = $serviceModel->getService($serviceID);
+
+        echo view('templates/admin/header');
+        return view('admin/viewservice', ['servicelist' => $result]);
+    }
+
+    public function updateService()
+    {
+        $serviceModel = new ServiceModel();
+        echo "sly";
+        if ($this->request->getMethod() === 'post')
+        {
+            $serviceID = $this->request->getPost('serviceid');
+            $serviceCost = $this->request->getPost('servicecost');
+            $homeServiceCost = $this->request->getPost('homeservicecost');
+            $imageName = $this->request->getPost('imagename');
+            $status = $this->request->getPost('servicestatus');
+
+            if(!isset($status))
+            {
+                $status = $this->request->getPost('currentstatus');
+            }
+
+            $data = [
+                'servicecost' => $serviceCost,
+                'homeservicecost' => $homeServiceCost,
+                'imagename' =>$imageName,
+                'status' => $status,
+            ];
+            
+            if($serviceModel->update($serviceID, $data) == true)
+            {
+
+                $result = $serviceModel->getService($serviceID);
+
+                echo view('templates/admin/header');
+                $message = ["Service details has been updated"];
+                return view('admin/viewservice', ['servicelist' => $result, 'message' => $message]);
+            }
+            else
+            {
+                echo view('templates/admin/header');
+                $result = $serviceModel->getService($serviceID);
+                return view('admin/viewservice', ['servicelist' => $result]);
+            }
+    
+        }
+        else
+        {
+            echo $viewService($serviceID);
+        }
     }
 }

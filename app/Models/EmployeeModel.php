@@ -6,6 +6,17 @@ use CodeIgniter\Model;
 
 class EmployeeModel extends Model
 {
+    protected $table = 'employee';
+
+    protected $primarykey = 'id';
+
+    protected $allowedFields = ['name', 'position', 'status'];
+
+    protected $validationRules = [
+        'name'  => 'required', 
+        'position' => 'required',
+    ];
+
     public function getEmployee($employeeID)
     {
         $db = \Config\Database::connect();
@@ -13,7 +24,7 @@ class EmployeeModel extends Model
 
         if(strlen($employeeID))
         {
-            $builder->select('id, name, position');
+            $builder->select('id, name, position, status');
             $builder->where('id', $employeeID);
             $query = $builder->get(); 
             return $query->getRow();
@@ -70,5 +81,20 @@ class EmployeeModel extends Model
         $query = $builder->get();
     
         return $query->getResult();   
+    }
+
+    public function updateEmployeeStatus($employeeID, $status)
+    {
+        $db = \Config\Database::connect();
+        $builder = $db->table('employee');
+
+        $data = [
+            'status' => $status,
+        ];
+
+        $builder->where('id', $employeeID);
+        $builder->update($data);
+
+        return true;
     }
 }

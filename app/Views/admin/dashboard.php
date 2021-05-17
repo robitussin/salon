@@ -192,6 +192,10 @@
                         <input type="text" id="percentMassage" value="<?= $statistics['percentMassage']?>" hidden>  
                         <i class="fas fa-circle text-warning"></i> Massage
                     </span>
+                    <span class="mr-2">
+                        <input type="text" id="percentHomeServiceHaircut" value="<?= $statistics['percentHomeServiceHaircut']?>" hidden>  
+                        <i class="fas fa-circle text-danger"></i> Home Service Haircut
+                    </span>
                 </div>
             </div>
         </div>
@@ -245,7 +249,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Bruskee's Salon and Barbershop 2021. All Rights Reserved</span>
+                        <span>&copy; Brusko Barbershop 2021. All Rights Reserved.</span>
                     </div>
                 </div>
             </footer>
