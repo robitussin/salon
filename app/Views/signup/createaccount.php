@@ -36,7 +36,7 @@
                             <div class="text-center">
                                 <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
                             </div>
-
+                            
                             <div class="text-center" id="formsubmitmessage">      
                                 <?php if (! empty($errors)) : ?>
                                     <div class="alert alert-danger">
@@ -51,11 +51,11 @@
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <input type="text" class="form-control form-control-user" id="exampleFirstName"
-                                            placeholder="First Name" name ='username' required>
+                                            placeholder="Full Name" name ='username' required>
                                     </div>
                                     <div class="col-sm-6">
-                                        <input type="text" class="form-control form-control-user" id="exampleLastName"
-                                            placeholder="Contact Number" name ='contactnumber' required>
+                                        <input type="tel" class="form-control form-control-user" id="exampleLastName"
+                                            placeholder="11 digit Contact Number" name ='contactnumber' pattern="[0-9]{11}"  maxlength="12" required>
                                     </div>
                                 </div>
                                 <div class="form-group">

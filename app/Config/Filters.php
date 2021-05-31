@@ -19,6 +19,8 @@ class Filters extends BaseConfig
 		'csrf'     => CSRF::class,
 		'toolbar'  => DebugToolbar::class,
 		'honeypot' => Honeypot::class,
+		'adminAuth' => \App\Filters\AdminAuth::class,
+		'userAuth' => \App\Filters\UserAuth::class,
 	];
 
 	/**
@@ -58,5 +60,8 @@ class Filters extends BaseConfig
 	 *
 	 * @var array
 	 */
-	public $filters = [];
+	public $filters = [
+		'adminAuth' => ['before' => ['admin/*', 'admin']],
+		'userAuth' => ['before' => ['account/viewAccount/*', 'account/changepassword/*', 'appointment', 'appointment/*']]
+	];
 }

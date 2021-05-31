@@ -13,10 +13,10 @@ class AccountModel extends Model
     protected $allowedFields = ['emailaddress', 'username', 'password', 'contactnumber', 'status'];
 
     protected $validationRules = [
-        'username'  => 'required', 
+        'username'  => 'required|alpha_space', 
         'emailaddress' => 'required|valid_email|is_unique[accounts.emailaddress]',
-        'password'  => 'required',
-        'contactnumber' => 'required',
+        'password'  => 'required|alpha_numeric_punct',
+        'contactnumber' => 'required|numeric',
         'passwordconfirm' => 'required_with[password]|matches[password]'
     ];
 
@@ -26,7 +26,21 @@ class AccountModel extends Model
         ],
         'passwordconfirm'   => [
             'matches' => '*The repeat password does not match the password.'
-        ]
+        ],
+        'username'   => [
+            'alpha_space' => 'Alphabetical characters and spaces are only allowed for usernames'
+        ],
+        'password'   => [
+            'alpha_numeric_punct' => 'Alphanumeric characters, spaces , ~ (tilde),
+            ! (exclamation), # (number), $ (dollar),
+            % (percent), & (ampersand), * (asterisk),
+            - (dash), _ (underscore), + (plus),
+            = (equals), | (vertical bar), : (colon),
+            . (period) are only allowed for passwords'
+        ],
+        'contactnumber'   => [
+            'numeric' => 'Numeric characters are only allowed for Contact numbers'
+        ],
     ];
 
     public function checkAccount($emailaddress, $password)

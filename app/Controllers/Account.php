@@ -9,7 +9,8 @@ use App\Models\VerificationModel;
 use CodeIgniter\Test\CIDatabaseTestCase;
 use CodeIgniter\Controller;
 use CodeIgniter\I18n\Time;
-class Account extends Controller
+
+class Account extends BaseController
 {
     public function index()
     {
@@ -74,8 +75,7 @@ class Account extends Controller
                                 'email'     => $emailaddress,
                             ];
                             
-                            $session = \Config\Services::session();
-                            $session->set($newdata);
+                            $this->session->set($newdata);
                         }
 
                         $message = ["A verification code has been sent to your email address! Please enter the code below to verify your account"];
@@ -83,7 +83,8 @@ class Account extends Controller
                     }
                     else
                     {
-                        $data = $email->printDebugger(['header']);
+                        $errormessage = $email->printDebugger(['header']);
+                        $data = [$errormessage];
                         return view('signup/createaccount', ['errors' => $data]);   
                     }
                 }
@@ -127,10 +128,9 @@ class Account extends Controller
                         'logged_in' => TRUE
                     ];
                 
-                    $session = \Config\Services::session();
-                    $session->set($newdata);
+                    $this->session->set($newdata);
 
-                    if(!strcmp($session->get('username'), "admin"))
+                    if(!strcmp($this->session->get('username'), "admin"))
                     {
                         $statisticsModel = new StatisticsModel();
 
@@ -233,7 +233,7 @@ class Account extends Controller
                     }
                     else
                     {
-                        $accountid = $session->get('accountid');
+                        $accountid = $this->session->get('accountid');
 
                         $result = $appointmentModel->retrieveAppointment($accountid);
 
@@ -262,8 +262,7 @@ class Account extends Controller
     
     public function userlogout()
     {
-        $session = \Config\Services::session();
-        $session->destroy();
+        $this->session->destroy();
 
         echo view('login/loginaccount');  
     }
@@ -325,8 +324,7 @@ class Account extends Controller
 
         $result = $model->getAccount($accountid);
 
-        $session = \Config\Services::session();
-        $emailaddress = $session->get('email');
+        $emailaddress = $this->session->get('email');
 
         if(!strcmp($emailaddress, "admin@mail.com"))
         {
@@ -342,8 +340,6 @@ class Account extends Controller
 
     public function verifyaccount()
     {
-        $session = \Config\Services::session();
-
         $accountModel = new AccountModel();
         $verificationModel = new VerificationModel();
         $appointmentModel = new AppointmentModel();
@@ -352,7 +348,7 @@ class Account extends Controller
                 'verificationcode' => 'required',
             ]))
         {
-            $emailaddress = $session->get('email');
+            $emailaddress = $this->session->get('email');
             $verificationCode = $this->request->getPost('verificationcode');
 
             // verify account using code sent from email
@@ -360,7 +356,7 @@ class Account extends Controller
             
             if(isset($verificationResult))
             {
-                $accountid = $session->get('accountid');
+                $accountid = $this->session->get('accountid');
 
                 // get all appointments
                 $result = $appointmentModel->retrieveAppointment($accountid);
@@ -373,7 +369,7 @@ class Account extends Controller
                 // activate account
                 $accountModel->updateaccountstatus($accountid, "ACTIVE");
 
-                $session->set($newdata);
+                $this->session->set($newdata);
 
                 echo view('templates/user/header');
                 return view('user/viewappointment', ['appointmentlist' => $result]);
@@ -398,12 +394,11 @@ class Account extends Controller
             'passwordconfirm' => 'required',
         ]))
         {
-            $session = \Config\Services::session();
-            $accountid = $session->get('accountid');
+            $accountid = $this->session->get('accountid');
 
             $data = [
-                'password'  => $this->request->getPost('password'),
-                'passwordconfirm'  => $this->request->getPost('passwordconfirm'),
+                'password'  => $this->session>request->getPost('password'),
+                'passwordconfirm'  => $this->session->request->getPost('passwordconfirm'),
             ];
             
             if($accountModel->update($accountid, $data) == true)

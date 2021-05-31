@@ -8,15 +8,15 @@ use App\Models\EmployeeModel;
 use App\Models\AppointmentModel;
 use App\Models\AccountModel;
 use CodeIgniter\Controller;
-class Admin extends Controller
+
+class Admin extends BaseController
 {
     public function index()
     {
-        $model = new StatisticModel();
+        $sessionEmail = $this->session->get('email');
+        $sessionStatus = $this->session->get('logged_in');
 
-        echo view('templates/admin/header');
-        echo view('admin/dashboard');
-        echo view('templates/admin/footer');
+        echo $this->dashboard();
     }
 
     public function dashboard()
@@ -184,8 +184,8 @@ class Admin extends Controller
             $username =  $this->request->getPost('username');
             $contactnumber = $this->request->getPost('contactnumber');
             $userinfoupdate = $this->request->getPost('userinfoupdate');
-            $session = \Config\Services::session();
-            $emailaddress = $session->get('email');
+           
+            $emailaddress = $this->session->get('email');
             
             if(isset($userinfoupdate))// if Save changes button was pressed. Go here.
             {
@@ -478,7 +478,7 @@ class Admin extends Controller
     public function updateService()
     {
         $serviceModel = new ServiceModel();
-        echo "sly";
+  
         if ($this->request->getMethod() === 'post')
         {
             $serviceID = $this->request->getPost('serviceid');

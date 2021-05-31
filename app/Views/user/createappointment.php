@@ -24,22 +24,24 @@
                         <div class="row">                 
                             <?php if (! empty($servicelist)) : ?>
                                 <?php foreach ($servicelist as $field) : ?>   
-                                    <div class="col-lg-3">
-                                        <div class="card-body">
-                                            <img class="card-img-top" src="<?= base_url('assets/img/'. $field->imagename); ?>" alt="Card image" style="width:100%">
+                                    <?php if ($field->status == "ACTIVE"): ?>
+                                        <div class="col-lg-3">
                                             <div class="card-body">
-                                                <h4 class="card-title"><?= $field->servicename ?></h4>
-                                                <p class="card-text">Cost: <?= $field->servicecost ?> Pesos</p>
-                                                <p class="card-text"><?= $field->description ?></p>                                             
-                                                <div class="form-check">
-                                                    <label class="form-check-label" for="check1">
-                                                    <input type="checkbox" class="form-check-input" id="check1" name="servicename[]" value="<?= $field->servicename ."-". $field->id ?>">    
-                                                    <p class="card-text">Choose <?= $field->servicename ?></p>               
-                                                    </label>
+                                                <img class="card-img-top" src="<?= base_url('assets/img/'. $field->imagename); ?>" alt="Card image" style="width:100%">
+                                                <div class="card-body">
+                                                    <h4 class="card-title"><?= $field->servicename ?></h4>
+                                                    <p class="card-text">Cost: <?= $field->servicecost ?> Pesos</p>
+                                                    <p class="card-text"><?= $field->description ?></p>                                             
+                                                    <div class="form-check">
+                                                        <label class="form-check-label" for="check1">
+                                                        <input type="checkbox" class="form-check-input" id="check1" name="servicename[]" value="<?= $field->servicename ."-". $field->id ?>">    
+                                                        <p class="card-text">Choose <?= $field->servicename ?></p>               
+                                                        </label>
+                                                        </div>
                                                     </div>
-                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
+                                    <?php endif ?>   
                                 </br>
                                 <?php endforeach ?>   
                             <?php endif ?>           
