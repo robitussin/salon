@@ -397,7 +397,7 @@ class Account extends BaseController
             $accountid = $this->session->get('accountid');
 
             $data = [
-                'password'  => $this->session>request->getPost('password'),
+                'password'  => $this->session->request->getPost('password'),
                 'passwordconfirm'  => $this->session->request->getPost('passwordconfirm'),
             ];
             
